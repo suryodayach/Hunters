@@ -1,0 +1,212 @@
+# <!-- Powered by BMAD™ Core -->
+workflow:
+  id: quick-fix
+  name: Quick Fix Workflow
+  description: >-
+    Rapid development workflow for bug fixes, small features, and urgent changes.
+    Bypasses full planning phase for speed while maintaining quality and Archon tracking.
+  type: rapid
+  project_types:
+    - all
+
+  prerequisites:
+    - Existing project with BMAD installed
+    - Archon project configured
+    - Clear understanding of the fix/feature needed
+
+  sequence:
+    - step: quick_assessment
+      agent: dev
+      action: assess_change_scope
+      creates: quick-assessment.md
+      time_limit: 10_minutes
+      notes: |
+        Rapid assessment of the requested change:
+        - Identify affected files and components
+        - Estimate complexity (simple/medium/complex)
+        - Check for potential side effects
+        - Determine if full workflow needed instead
+        If complex, recommend full workflow
+        SAVE OUTPUT: Create quick-assessment.md
+
+    - step: archon_quick_task
+      action: create_quick_task
+      notes: |
+        Create streamlined Archon task:
+        - Type: Bug Fix or Quick Feature
+        - Priority: Based on urgency
+        - Simplified subtasks (2-3 max):
+          1. Implementation
+          2. Testing
+          3. Verification
+        - Set to "In Progress" immediately
+
+    - step: implementation
+      agent: dev
+      action: implement_fix
+      updates:
+        - code_files
+        - Archon task progress
+      time_limit: 2_hours
+      notes: |
+        Rapid implementation:
+        - Fix the issue or implement small feature
+        - Follow existing patterns (no refactoring)
+        - For Android fixes:
+          - Query mcp__android-mcp__ for quick pattern references
+          - Use existing architecture patterns
+          - Follow Material3 guidelines
+        - Add/update relevant tests
+        - Update Archon subtasks as completed
+        - Focus on minimal viable solution
+
+    - step: quick_test
+      agent: dev
+      action: run_tests
+      updates: test_results
+      time_limit: 30_minutes
+      notes: |
+        Quick verification:
+        - Run affected unit tests
+        - Manual testing of the fix
+        - Smoke test related features
+        - Update Archon with test status
+
+    - step: code_review
+      agent: qa
+      action: quick_review
+      updates:
+        - review_comments
+        - Archon task
+      time_limit: 30_minutes
+      optional: true
+      condition: if_time_permits
+      notes: |
+        Rapid code review:
+        - Check for obvious issues
+        - Verify fix addresses the problem
+        - Ensure no regressions
+        - Create bug task in Archon if issues found
+
+    - step: deployment_ready
+      action: mark_complete
+      notes: |
+        Finalize quick fix:
+        - Move Archon task to "Done"
+        - Document any follow-up needed
+        - Ready for deployment
+        Total time: < 3 hours
+
+  quick_fix_types:
+    bug_fixes:
+      - Critical production bugs
+      - UI glitches
+      - Data validation issues
+      - API errors
+      - Performance hotfixes
+
+    small_features:
+      - Adding a button or field
+      - Updating validation rules
+      - Changing text or labels
+      - Adding simple API endpoint
+      - Minor UI adjustments
+
+    urgent_changes:
+      - Security patches
+      - Compliance updates
+      - Third-party API changes
+      - Configuration updates
+      - Emergency rollbacks
+
+  when_not_to_use:
+    - New major features
+    - Architecture changes
+    - Database migrations
+    - Breaking API changes
+    - Complex refactoring
+    - Multi-component changes
+
+  archon_quick_tracking:
+    task_template:
+      title: "[QUICK] {{DESCRIPTION}}"
+      type: quick_fix
+      priority: urgent
+      subtasks:
+        - "Implement fix/feature"
+        - "Test changes"
+        - "Verify completion"
+      time_estimate: 3_hours
+
+    columns_used:
+      - To Do (briefly)
+      - In Progress (main work)
+      - Testing (verification)
+      - Done
+
+  best_practices:
+    speed_focus:
+      - No over-engineering
+      - Minimal documentation
+      - Focus on the fix
+      - Test critical paths only
+
+    quality_balance:
+      - Don't skip tests entirely
+      - Follow existing patterns
+      - Comment complex fixes
+      - Track in Archon always
+
+    communication:
+      - Note if fuller solution needed later
+      - Document any debt incurred
+      - Communicate limitations of quick fix
+
+  quick_fix_checklist:
+    before_starting:
+      - "[ ] Is this truly a quick fix? (< 3 hours)"
+      - "[ ] Are requirements clear?"
+      - "[ ] Is the scope limited?"
+      - "[ ] Can use existing patterns?"
+
+    during_implementation:
+      - "[ ] Staying focused on the fix"
+      - "[ ] Not refactoring unnecessarily"
+      - "[ ] Updating Archon task"
+      - "[ ] Writing minimal tests"
+
+    before_completion:
+      - "[ ] Fix verified working"
+      - "[ ] No regressions introduced"
+      - "[ ] Archon task updated"
+      - "[ ] Any follow-up documented"
+
+  examples:
+    bug_fix_example:
+      issue: "Button not working on mobile"
+      time: "1.5 hours"
+      steps: 1. Identify CSS issue (15 min)
+        2. Fix responsive styles (30 min)
+        3. Test on devices (30 min)
+        4. Update Archon (15 min)
+
+    android_fix_example:
+      issue: "Compose LazyColumn performance issue"
+      time: "2 hours"
+      steps: 1. Query mcp__android-mcp__get_compose_component for LazyColumn best practices (10 min)
+        2. Implement key parameter and remember optimizations (45 min)
+        3. Test performance improvements (45 min)
+        4. Update Archon task (20 min)
+
+    small_feature_example:
+      feature: "Add email validation"
+      time: "2 hours"
+      steps: 1. Add validation logic (45 min)
+        2. Update UI messages (30 min)
+        3. Write tests (30 min)
+        4. Verify and close (15 min)
+
+  handoff_prompts:
+    dev_to_qa: "Quick fix implemented. Please verify: {{DESCRIPTION}}"
+    qa_to_dev: "Issue found in quick fix. See Archon task #{bug_id}"
+    completion: "Quick fix complete. Archon task #{task_id} closed."

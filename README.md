@@ -92,6 +92,20 @@ This single command handles:
 
 **Prerequisites**: [Node.js](https://nodejs.org) v20+ required
 
+### Android Development with MCP Integration
+
+BMAD now includes seamless integration with **Archon** (task management) and **android-mcp-server** (Android patterns & components). This provides:
+
+- 🏗️ **Clean Architecture patterns** - Domain, Data, and Presentation layers
+- 📱 **Jetpack Compose components** - UI component documentation and examples
+- 🎨 **Material3 design system** - Complete Material Design 3 implementation
+- 🔄 **MVI/MVVM patterns** - State management and architecture patterns
+- 🔥 **Firebase services** - Authentication, Firestore, FCM implementations
+- 🧭 **Navigation 3** - Modern navigation with dynamic TopBar
+- ✅ **Archon task tracking** - Full sprint management and progress tracking
+
+See [Android Development Workflow](#android-development-workflow) for the complete guide.
+
 ### Fastest Start: Web UI Full Stack Team at your disposal (2 minutes)
 
 1. **Get the bundle**: Save or clone the [full stack team file](dist/teams/team-fullstack.txt) or choose another team
@@ -191,6 +205,110 @@ The generated XML file contains your project's text-based source files in a stru
   ]]></file>
 </files>
 ```
+
+## Android Development Workflow
+
+### Complete Android Development with BMAD + MCP
+
+BMAD agents now integrate with **android-mcp-server** to provide production-ready Android patterns and components. Here's the complete workflow:
+
+#### Phase 1: Planning & Discovery (Days 1-2)
+
+```bash
+# 1. Analyze existing Android project
+@analyst
+*document-project  # Analyzes project structure, validates config via MCP
+
+# 2. Create Product Requirements
+@pm
+*create-prd  # Creates PRD and Archon epic
+
+# 3. Design Architecture
+@architect
+*create-android-architecture  # Uses MCP Clean Architecture patterns
+*android-clean-arch           # Query specific patterns
+*android-nav3                 # Get Navigation 3 patterns
+
+# 4. Design UI (if needed)
+@ux-expert
+*create-android-ui-spec       # Material3 UI specification
+*material3-component Button   # Get Material3 component docs
+*search-icons navigation      # Find appropriate icons
+```
+
+#### Phase 2: Sprint Planning (Day 3)
+
+```bash
+# 5. Sprint Setup
+@sm
+*draft  # Creates stories with embedded MCP patterns
+        # Auto-generates 3-7 subtasks in Archon
+        # Links story files to Archon tasks
+```
+
+#### Phase 3: Development (Days 4-5)
+
+```bash
+# 6. Implementation
+@dev
+*develop-story  # Implements using MCP patterns automatically
+
+# During development, Dev agent automatically queries:
+# - mcp__android-mcp__get_clean_architecture_pattern
+# - mcp__android-mcp__get_compose_component
+# - mcp__android-mcp__get_material3_component
+# - mcp__android-mcp__get_mvi_pattern
+# - mcp__android-mcp__get_use_case_pattern
+# - mcp__android-mcp__get_firebase_pattern
+# - mcp__android-mcp__get_nav3_patterns
+
+# Manual pattern queries if needed:
+*android-pattern mvi          # Get MVI pattern
+*android-component LazyColumn # Get Compose component docs
+*android-usecase paginated    # Get paginated use case pattern
+```
+
+#### Phase 4: Quality & Delivery (Day 6)
+
+```bash
+# 7. Testing & Review
+@qa
+*review  # Reviews implementation, creates bug tasks in Archon
+```
+
+### Quick Fix Workflow (< 3 hours)
+
+For urgent fixes or small Android features:
+
+```bash
+@dev
+# Quick assessment and implementation
+# Auto-queries MCP for immediate pattern references
+# Example: Fix LazyColumn performance issue
+# - Queries mcp__android-mcp__get_compose_component for best practices
+# - Implements optimizations
+# - Updates Archon task
+```
+
+### Key Android MCP Tools Available
+
+The android-mcp-server provides 17 specialized tools:
+
+- **Architecture**: `get_clean_architecture_pattern`, `get_mvi_pattern`, `get_use_case_pattern`
+- **UI Components**: `get_compose_component`, `get_material3_component`
+- **Icons**: `search_icons`, `get_material_icon`, `get_icon_library`
+- **Firebase**: `get_firebase_pattern` (auth, firestore, fcm, storage)
+- **Navigation**: `get_nav3_patterns`, `get_navigation3_dynamic_topbar`
+- **Project Setup**: `generate_android_project`, `get_version_catalog`, `validate_android_config`
+- **State Management**: `get_app_state_pattern`
+- **Images**: `search_unsplash_images` for mockups
+
+### Integration Benefits
+
+- **Consistent Patterns**: All agents reference the same Android patterns from MCP
+- **Faster Development**: Direct access to patterns reduces boilerplate
+- **Better Quality**: Following production-ready patterns
+- **Seamless Workflow**: Archon for task tracking, Android MCP for technical patterns
 
 ## Documentation & Resources
 

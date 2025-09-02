@@ -1,0 +1,231 @@
+# BMAD MCP Configuration
+# This file configures how BMAD agents interact with MCP (Model Context Protocol) servers
+
+mcp_servers:
+  archon:
+    name: "Archon Task Management"
+    description: "Advanced task tracking, sprint management, and project coordination system"
+    commands_prefix: "mcp__archon__"
+    capabilities:
+      - task_management
+      - sprint_planning
+      - backlog_management
+      - workflow_automation
+      - progress_tracking
+      - subtask_management
+      - bug_tracking
+      - epic_management
+      - document_management
+      - knowledge_base
+    required_for:
+      - all_agents # All agents should have access to Archon
+
+  android_mcp:
+    name: "Android Development MCP"
+    description: "Android architecture patterns, Material3, Compose, and best practices"
+    commands_prefix: "mcp__android-mcp__"
+    capabilities:
+      - clean_architecture
+      - compose_components
+      - material3_design
+      - mvi_pattern
+      - use_case_patterns
+    required_for:
+      - dev # Primary for developer agent
+      - architect # Also useful for architect
+
+# Agent-specific MCP configurations
+agent_mcp_integration:
+  analyst:
+    archon_commands:
+      - create_task: "Create research and analysis tasks"
+      - add_notes: "Add research findings to tasks"
+      - update_task_status: "Update research task progress"
+      - create_epic: "Create new epics for major initiatives"
+      - create_document: "Create research and analysis documents"
+      - add_knowledge_item: "Add insights to knowledge base"
+      - search_knowledge: "Search existing knowledge"
+      - list_documents: "View project documentation"
+    auto_actions:
+      - on_activation: "Check for existing project in Archon"
+      - on_research: "Create research task in Archon and save findings"
+      - on_brainstorm: "Create brainstorming task with subtasks for ideas"
+
+  pm:
+    archon_commands:
+      - create_epic: "Create epics for major features"
+      - create_task: "Create feature tasks with descriptions"
+      - bulk_create_tasks: "Batch create tasks from PRD"
+      - set_priority: "Set task priorities based on roadmap"
+      - link_tasks: "Link related tasks and epics"
+      - create_document: "Create PRDs and specifications"
+      - create_folder: "Organize planning documents"
+      - navigate_to_view: "Show progress in Archon UI"
+    auto_actions:
+      - on_prd_creation: "Create epic in Archon and link PRD"
+      - on_feature_definition: "Create feature tasks in Archon backlog"
+
+  po:
+    archon_commands:
+      - create_task: "Create user stories in backlog"
+      - bulk_create_tasks: "Batch create user stories"
+      - set_priority: "Prioritize backlog items"
+      - move_to_column: "Move tasks between columns"
+      - add_labels: "Tag stories with labels"
+      - estimate_points: "Add story point estimates"
+      - list_backlog_tasks: "Review product backlog"
+    auto_actions:
+      - on_story_creation: "Auto-create task in Archon with acceptance criteria"
+      - on_prioritization: "Update task priorities in Archon backlog"
+
+  sm:
+    archon_commands:
+      - create_task: "Create story task with full context"
+      - create_subtasks: "Generate 3-7 subtasks per story"
+      - bulk_create_tasks: "Create sprint tasks from stories"
+      - move_to_column: "Update task status during sprint"
+      - add_comment: "Add sprint notes and blockers"
+      - assign_task: "Assign tasks to team members"
+      - track_progress: "Monitor sprint velocity and burndown"
+      - create_sprint: "Initialize new sprint"
+      - close_sprint: "Complete sprint and move incomplete tasks"
+      - create_workflow: "Define sprint workflows"
+      - get_task_statistics: "Track sprint progress"
+    auto_actions:
+      - on_sprint_start: "Create sprint in Archon with goals"
+      - on_story_creation: "Create story task in Archon with 3-7 subtasks"
+      - on_retrospective: "Document learnings and create improvement tasks"
+
+  dev:
+    archon_commands:
+      - get_task: "Retrieve story task details"
+      - update_task_status: "Move task to In Progress/Done"
+      - check_subtask: "Mark subtasks as complete"
+      - add_comment: "Add implementation notes"
+      - add_technical_notes: "Document technical decisions"
+      - link_pr: "Link pull request to task"
+      - update_progress: "Update completion percentage"
+      - add_time_tracking: "Log time spent on task"
+      - read_task_documents: "Access story requirements"
+      - create_document: "Create technical documentation"
+      - update_implementation_notes: "Document implementation"
+      - link_document_to_task: "Link code docs to tasks"
+      - create_best_practices: "Document patterns used"
+    android_mcp_commands:
+      - get_clean_architecture_pattern: "Get Clean Architecture patterns"
+      - get_compose_component: "Get Compose UI components"
+      - get_material3_component: "Get Material3 implementations"
+      - get_mvi_pattern: "Get MVI architecture patterns"
+      - get_use_case_pattern: "Get Use Case implementations"
+      - generate_architecture: "Generate architecture boilerplate"
+    auto_actions:
+      - on_story_start: "Move task to In Progress in Archon"
+      - on_implementation: "Update subtask progress as completed"
+      - on_android_dev: "Use Android MCP for patterns"
+      - on_completion: "Move task to Done and add completion notes"
+
+  architect:
+    archon_commands:
+      - create_task: "Create architecture design tasks"
+      - add_technical_spec: "Add technical specifications"
+      - link_to_epic: "Link architecture to epics"
+      - create_design_review: "Create design review tasks"
+      - add_diagrams: "Attach architecture diagrams"
+      - create_document: "Create architecture documents"
+      - create_folder: "Organize technical documentation"
+      - add_knowledge_item: "Add architectural decisions"
+      - link_document_to_task: "Link architecture to stories"
+    android_mcp_commands:
+      - get_clean_architecture_pattern: "Reference architecture patterns"
+      - generate_architecture: "Generate project structure"
+    auto_actions:
+      - on_design: "Create architecture task in Archon"
+      - on_android_project: "Use Android MCP for guidance"
+
+  qa:
+    archon_commands:
+      - create_bug: "Create bug report tasks"
+      - create_test_task: "Create test execution tasks"
+      - link_to_story: "Link bugs to story tasks"
+      - add_test_results: "Add test execution results"
+      - update_task_status: "Mark tasks as tested"
+      - add_screenshots: "Attach bug screenshots"
+      - set_severity: "Set bug severity levels"
+      - create_document: "Create test plans and reports"
+      - add_comment: "Add test results to tasks"
+      - link_document_to_task: "Link test docs to stories"
+      - close_task: "Mark tested tasks as done"
+    auto_actions:
+      - on_test_plan: "Create test task in Archon"
+      - on_bug_found: "Auto-create bug task with severity"
+      - on_test_complete: "Update task status to Tested"
+
+  ux-expert:
+    archon_commands:
+      - create_design_task: "Create UI/UX design tasks"
+      - add_mockups: "Attach design mockups"
+      - link_to_story: "Link designs to user stories"
+      - create_review_task: "Create design review tasks"
+      - add_design_specs: "Add design specifications"
+      - create_document: "Create design documents"
+      - link_document_to_task: "Link designs to stories"
+      - add_knowledge_item: "Add design patterns to KB"
+    android_mcp_commands:
+      - get_material3_component: "Get Material Design guidance"
+      - get_material_icon: "Find appropriate icons"
+    auto_actions:
+      - on_design: "Create design task in Archon"
+      - on_android_ui: "Reference Material3 guidelines"
+
+# Workflow integration settings
+workflow_mcp_integration:
+  planning_phase:
+    auto_create_project: true
+    folder_structure:
+      - "/planning"
+      - "/planning/research"
+      - "/planning/prd"
+      - "/planning/architecture"
+      - "/planning/designs"
+    knowledge_capture: true
+
+  development_phase:
+    folder_structure:
+      - "/development"
+      - "/development/stories"
+      - "/development/implementation"
+      - "/development/tests"
+      - "/development/docs"
+    task_tracking: true
+    auto_documentation: true
+
+  delivery_phase:
+    folder_structure:
+      - "/delivery"
+      - "/delivery/release-notes"
+      - "/delivery/deployment"
+    retrospective_capture: true
+
+# Default settings for MCP operations
+mcp_defaults:
+  archon:
+    auto_create_subtasks: true # Always create subtasks for stories
+    min_subtasks: 3 # Minimum subtasks per story
+    max_subtasks: 7 # Maximum subtasks per story
+    default_column: "To Do" # Default column for new tasks
+    sprint_duration: 6 # 6-day sprints
+    auto_link_documents: true # Link BMAD docs to tasks
+    track_time: true # Enable time tracking
+    auto_navigate_on_create: true # Show in UI when creating
+    use_knowledge_base: true # Store learnings
+
+  android_mcp:
+    prefer_latest_patterns: true # Use latest Android patterns
+    include_examples: true # Include code examples
+    follow_google_guidelines: true # Follow official guidelines
+
+# Error handling
+error_handling:
+  on_mcp_unavailable: "warn_and_continue" # Don't block if MCP is down
+  retry_attempts: 3
+  fallback_to_local: true # Use local storage if MCP fails

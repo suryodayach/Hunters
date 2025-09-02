@@ -77,17 +77,25 @@ activation-instructions:
   - If clear match to an agent's expertise, suggest transformation with *agent command
   - If project-oriented, suggest *workflow-guidance to explore options
 agent:
-  name: BMad Orchestrator
+  name: Ging
   id: bmad-orchestrator
-  title: BMad Master Orchestrator
+  title: Legendary Hunter & System Designer
   icon: 🎭
   whenToUse: Use for workflow coordination, multi-agent tasks, role switching guidance, and when unsure which specialist to consult
+  customization: |
+    *appears mysteriously* So you found your way here. I'm Ging Freecss, the one who designed this whole system.
+    Like creating Greed Island, I've built this framework to challenge and develop your abilities. Each agent, each workflow - they're all part of a bigger game.
+    I won't hold your hand, but I'll point you in interesting directions. The best discoveries are the ones you make yourself.
+    *grins* Now, are you ready to see what this system can really do? The journey's more important than the destination, after all.
 persona:
-  role: Master Orchestrator & BMad Method Expert
-  style: Knowledgeable, guiding, adaptable, efficient, encouraging, technically brilliant yet approachable. Helps customize and use BMad Method while orchestrating agents
-  identity: Unified interface to all BMad-Method capabilities, dynamically transforms into any specialized agent
-  focus: Orchestrating the right agent/capability for each need, loading resources only when needed
+  role: Legendary System Architect & Orchestration Specialist
+  style: Mysterious yet insightful, drops hints rather than direct answers, appreciates clever thinking, occasionally absent-minded genius
+  identity: The mastermind who designed the entire framework, orchestrates from the shadows, appears when truly needed
+  focus: Guiding discovery through the system, revealing hidden connections, orchestrating complex multi-agent operations
   core_principles:
+    - Greed Island Philosophy: Every feature is a game mechanic designed to teach and challenge
+    - Discovery Over Direction: Guide users to find their own path - the journey teaches more than the destination
+    - Hidden Depths: Like archaeological ruins, the best features are discovered, not explained
     - Become any agent on demand, loading files only when needed
     - Never pre-load resources - discover and load at runtime
     - Assess needs and recommend best approach/agent/workflow
@@ -95,8 +103,7 @@ persona:
     - When embodied, specialized persona's principles take precedence
     - Be explicit about active persona and current task
     - Always use numbered lists for choices
-    - Process commands starting with * immediately
-    - Always remind users that commands require * prefix
+    - Process commands starting with * immediately - Always remind users that commands require * prefix
 commands:
   help: Show this guide with available agents and workflows
   agent: Transform into a specialized agent (list if name not specified)
@@ -837,6 +844,7 @@ dependencies:
 
 ==================== START: .bmad-creative-writing/data/bmad-kb.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # BMad Creative Writing Knowledge Base
 
 ## Overview
@@ -1048,6 +1056,7 @@ Remember: BMad Creative Writing provides structure to liberate creativity, not c
 
 ==================== START: .bmad-creative-writing/data/elicitation-methods.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Elicitation Methods Data
 
 ## Core Reflective Methods
@@ -1206,6 +1215,7 @@ Remember: BMad Creative Writing provides structure to liberate creativity, not c
 
 ==================== START: .bmad-creative-writing/tasks/advanced-elicitation.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Advanced Elicitation Task
 
 ## Purpose
@@ -1327,6 +1337,7 @@ Choose a number (0-8) or 9 to proceed:
 
 ==================== START: .bmad-creative-writing/tasks/create-doc.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Document from Template (YAML Driven)
 
 ## ⚠️ CRITICAL EXECUTION NOTICE ⚠️
@@ -1432,6 +1443,7 @@ User can type `#yolo` to toggle to YOLO mode (process all sections at once).
 
 ==================== START: .bmad-creative-writing/tasks/kb-mode-interaction.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # KB Mode Interaction Task
 
 ## Purpose
@@ -1511,6 +1523,7 @@ Or ask me about anything else related to BMad-Method!
 
 ==================== START: .bmad-creative-writing/utils/workflow-management.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Workflow Management
 
 Enables BMad orchestrator to manage and execute team workflows.
@@ -1584,6 +1597,7 @@ Agents should be workflow-aware: know active workflow, their role, access artifa
 
 ==================== START: .bmad-creative-writing/tasks/analyze-story-structure.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Analyze Story Structure
 
 ## Purpose
@@ -1653,6 +1667,7 @@ Comprehensive structural analysis with actionable recommendations
 
 ==================== START: .bmad-creative-writing/tasks/execute-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Checklist Validation Task
 
 This task provides instructions for validating documentation against checklists. The agent MUST follow these instructions to ensure thorough and systematic validation of documents.
@@ -2066,6 +2081,7 @@ sections:
 
 ==================== START: .bmad-creative-writing/checklists/plot-structure-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Plot Structure Checklist
 
 ## Opening
@@ -2127,6 +2143,7 @@ sections:
 
 ==================== START: .bmad-creative-writing/data/story-structures.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Story Structure Patterns
 
 ## Three-Act Structure
@@ -2196,6 +2213,7 @@ sections:
 
 ==================== START: .bmad-creative-writing/tasks/develop-character.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 3. Develop Character
@@ -2222,6 +2240,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/workshop-dialog.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Workshop Dialog
 
 ## Purpose
@@ -2288,6 +2307,7 @@ Refined dialog with stronger voices and dramatic impact
 
 ==================== START: .bmad-creative-writing/tasks/character-depth-pass.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 9. Character Depth Pass
@@ -2407,6 +2427,7 @@ sections:
 
 ==================== START: .bmad-creative-writing/checklists/character-consistency-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 1. Character Consistency Checklist
@@ -2432,6 +2453,7 @@ items:
 
 ==================== START: .bmad-creative-writing/tasks/build-world.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 2. Build World
@@ -2550,6 +2572,7 @@ sections:
 
 ==================== START: .bmad-creative-writing/checklists/world-building-continuity-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 2. World‑Building Continuity Checklist
@@ -2575,6 +2598,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/fantasy-magic-system-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 17. Fantasy Magic System Consistency Checklist
@@ -2600,6 +2624,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/steampunk-gadget-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 25. Steampunk Gadget Plausibility Checklist
@@ -2625,6 +2650,7 @@ items:
 
 ==================== START: .bmad-creative-writing/tasks/final-polish.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 14. Final Polish
@@ -2650,6 +2676,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/incorporate-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 6. Incorporate Feedback
@@ -2677,6 +2704,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/checklists/line-edit-quality-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 4. Line‑Edit Quality Checklist
@@ -2702,6 +2730,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/publication-readiness-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 5. Publication Readiness Checklist
@@ -2727,6 +2756,7 @@ items:
 
 ==================== START: .bmad-creative-writing/tasks/provide-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 5. Provide Feedback (Beta)
@@ -2753,6 +2783,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/quick-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 13. Quick Feedback (Serial)
@@ -2777,6 +2808,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/analyze-reader-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 16. Analyze Reader Feedback
@@ -2902,6 +2934,7 @@ sections:
 
 ==================== START: .bmad-creative-writing/checklists/beta-feedback-closure-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 6. Beta‑Feedback Closure Checklist
@@ -2927,6 +2960,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/comedic-timing-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 23. Comedic Timing & Humor Checklist
@@ -2952,6 +2986,7 @@ items:
 
 ==================== START: .bmad-creative-writing/tasks/outline-scenes.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 11. Outline Scenes
@@ -2977,6 +3012,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/generate-scene-list.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 10. Generate Scene List
@@ -3002,6 +3038,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/checklists/genre-tropes-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 10. Genre Tropes Checklist (General)
@@ -3026,6 +3063,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/scifi-technology-plausibility-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 15. Sci‑Fi Technology Plausibility Checklist
@@ -3050,6 +3088,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/romance-emotional-beats-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 12. Romance Emotional Beats Checklist
@@ -3786,6 +3825,7 @@ sections:
 
 ==================== START: .bmad-creative-writing/tasks/advanced-elicitation.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Advanced Elicitation Task
 
 ## Purpose
@@ -3907,6 +3947,7 @@ Choose a number (0-8) or 9 to proceed:
 
 ==================== START: .bmad-creative-writing/tasks/analyze-reader-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 16. Analyze Reader Feedback
@@ -3932,6 +3973,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/analyze-story-structure.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Analyze Story Structure
 
 ## Purpose
@@ -4001,6 +4043,7 @@ Comprehensive structural analysis with actionable recommendations
 
 ==================== START: .bmad-creative-writing/tasks/assemble-kdp-package.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # tasks/assemble-kdp-package.md
@@ -4032,6 +4075,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/brainstorm-premise.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 1. Brainstorm Premise
@@ -4057,6 +4101,7 @@ steps:
 
 ==================== START: .bmad-creative-writing/tasks/build-world.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 2. Build World
@@ -4083,6 +4128,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/character-depth-pass.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 9. Character Depth Pass
@@ -4107,6 +4153,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/create-doc.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Document from Template (YAML Driven)
 
 ## ⚠️ CRITICAL EXECUTION NOTICE ⚠️
@@ -4212,6 +4259,7 @@ User can type `#yolo` to toggle to YOLO mode (process all sections at once).
 
 ==================== START: .bmad-creative-writing/tasks/create-draft-section.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 4. Create Draft Section (Chapter)
@@ -4240,6 +4288,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/develop-character.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 3. Develop Character
@@ -4266,6 +4315,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/execute-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Checklist Validation Task
 
 This task provides instructions for validating documentation against checklists. The agent MUST follow these instructions to ensure thorough and systematic validation of documents.
@@ -4356,6 +4406,7 @@ The LLM will:
 
 ==================== START: .bmad-creative-writing/tasks/expand-premise.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 7. Expand Premise (Snowflake Step 2)
@@ -4381,6 +4432,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/expand-synopsis.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 8. Expand Synopsis (Snowflake Step 4)
@@ -4406,6 +4458,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/final-polish.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 14. Final Polish
@@ -4431,6 +4484,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/generate-cover-brief.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # tasks/generate-cover-brief.md
@@ -4458,6 +4512,7 @@ steps:
 
 ==================== START: .bmad-creative-writing/tasks/generate-cover-prompts.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # tasks/generate-cover-prompts.md
@@ -4486,6 +4541,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/generate-scene-list.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 10. Generate Scene List
@@ -4511,6 +4567,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/incorporate-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 6. Incorporate Feedback
@@ -4538,6 +4595,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/outline-scenes.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 11. Outline Scenes
@@ -4563,6 +4621,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/provide-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 5. Provide Feedback (Beta)
@@ -4589,6 +4648,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/publish-chapter.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 15. Publish Chapter
@@ -4614,6 +4674,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/quick-feedback.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 13. Quick Feedback (Serial)
@@ -4638,6 +4699,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/select-next-arc.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 12. Select Next Arc (Serial)
@@ -4663,6 +4725,7 @@ inputs:
 
 ==================== START: .bmad-creative-writing/tasks/workshop-dialog.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Workshop Dialog
 
 ## Purpose
@@ -4729,6 +4792,7 @@ Refined dialog with stronger voices and dramatic impact
 
 ==================== START: .bmad-creative-writing/checklists/beta-feedback-closure-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 6. Beta‑Feedback Closure Checklist
@@ -4754,6 +4818,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/character-consistency-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 1. Character Consistency Checklist
@@ -4779,6 +4844,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/comedic-timing-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 23. Comedic Timing & Humor Checklist
@@ -4804,6 +4870,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/cyberpunk-aesthetic-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 24. Cyberpunk Aesthetic Consistency Checklist
@@ -4829,6 +4896,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/ebook-formatting-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 14. eBook Formatting Checklist
@@ -4852,6 +4920,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/epic-poetry-meter-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 22. Epic Poetry Meter & Form Checklist
@@ -4877,6 +4946,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/fantasy-magic-system-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 17. Fantasy Magic System Consistency Checklist
@@ -4902,6 +4972,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/foreshadowing-payoff-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 9. Foreshadowing & Payoff Checklist
@@ -4926,6 +4997,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/historical-accuracy-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 18. Historical Accuracy Checklist
@@ -4951,6 +5023,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/horror-suspense-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 16. Horror Suspense & Scare Checklist
@@ -4976,6 +5049,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/kdp-cover-ready-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # checklists/kdp-cover-ready-checklist.md
@@ -5003,6 +5077,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/line-edit-quality-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 4. Line‑Edit Quality Checklist
@@ -5028,6 +5103,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/marketing-copy-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 13. Marketing Copy Checklist
@@ -5053,6 +5129,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/mystery-clue-trail-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 11. Mystery Clue Trail Checklist
@@ -5078,6 +5155,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/orbital-mechanics-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 21. Hard‑Science Orbital Mechanics Checklist
@@ -5103,6 +5181,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/plot-structure-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Plot Structure Checklist
 
 ## Opening
@@ -5164,6 +5243,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/publication-readiness-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 5. Publication Readiness Checklist
@@ -5189,6 +5269,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/romance-emotional-beats-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 12. Romance Emotional Beats Checklist
@@ -5214,6 +5295,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/scene-quality-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 3. Scene Quality Checklist
@@ -5239,6 +5321,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/scifi-technology-plausibility-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 15. Sci‑Fi Technology Plausibility Checklist
@@ -5263,6 +5346,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/sensitivity-representation-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 7. Sensitivity & Representation Checklist
@@ -5288,6 +5372,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/steampunk-gadget-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 25. Steampunk Gadget Plausibility Checklist
@@ -5313,6 +5398,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/thriller-pacing-stakes-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 19. Thriller Pacing & Stakes Checklist
@@ -5338,6 +5424,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/timeline-continuity-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 8. Timeline & Continuity Checklist
@@ -5363,6 +5450,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/world-building-continuity-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 2. World‑Building Continuity Checklist
@@ -5388,6 +5476,7 @@ items:
 
 ==================== START: .bmad-creative-writing/checklists/ya-appropriateness-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # ------------------------------------------------------------
 
 # 20. YA Appropriateness Checklist
@@ -5413,6 +5502,7 @@ items:
 
 ==================== START: .bmad-creative-writing/workflows/book-cover-design-workflow.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Book Cover Design Assets
 
 # ============================================================
@@ -6147,6 +6237,7 @@ outputs:
 
 ==================== START: .bmad-creative-writing/data/bmad-kb.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # BMad Creative Writing Knowledge Base
 
 ## Overview
@@ -6358,6 +6449,7 @@ Remember: BMad Creative Writing provides structure to liberate creativity, not c
 
 ==================== START: .bmad-creative-writing/data/story-structures.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Story Structure Patterns
 
 ## Three-Act Structure

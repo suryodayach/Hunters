@@ -1,0 +1,327 @@
+# <!-- Powered by BMAD™ Core -->
+workflow:
+  id: archon-sprint-planning
+  name: Archon Sprint Planning Workflow
+  description: >-
+    Workflow for planning and managing sprints using Archon task management.
+    Coordinates sprint setup, story selection, and task creation with full Archon integration.
+  type: sprint-management
+  project_types:
+    - all
+
+  prerequisites:
+    - Archon MCP server configured
+    - Project created in Archon
+    - PRD and Architecture documents completed
+    - Stories drafted or ready for creation
+
+  sequence:
+    - step: sprint_setup
+      agent: sm
+      action: create_sprint_in_archon
+      creates: Sprint board in Archon
+      notes: |
+        Sprint initialization:
+        - Create new sprint in Archon (6-day cycle)
+        - Set sprint goals and objectives
+        - Define sprint capacity
+        - Set start and end dates
+        - Configure sprint columns:
+          - Backlog
+          - To Do (Sprint Backlog)
+          - In Progress
+          - Code Review
+          - Testing
+          - Done
+
+    - step: backlog_review
+      agent: po
+      action: prioritize_backlog
+      updates: Archon task priorities
+      notes: |
+        Backlog grooming with Archon:
+        - Review all backlog items in Archon
+        - Update priorities (P0-P3)
+        - Add/update story point estimates
+        - Ensure acceptance criteria are clear
+        - Add labels for categorization
+        - Link related tasks and epics
+
+    - step: story_selection
+      agent: sm
+      action: select_sprint_stories
+      creates: Sprint backlog
+      notes: |
+        Sprint planning meeting:
+        - Review prioritized backlog in Archon
+        - Select stories based on:
+          - Priority (P0 first, then P1, etc.)
+          - Team capacity
+          - Dependencies
+          - Sprint goals
+        - Move selected tasks to "To Do" column
+        - Calculate total story points
+        - Verify sprint commitment is realistic
+
+    - step: story_preparation
+      agent: sm
+      action: prepare_stories_with_subtasks
+      updates: Archon tasks with subtasks
+      repeats: for_each_selected_story
+      notes: |
+        For each sprint story:
+        - SM Agent: @sm → *draft
+        - Create detailed story file
+        - For Android stories: Reference MCP patterns in story
+          - Clean Architecture patterns
+          - Compose UI components
+          - Material3 components
+        - Auto-create Archon task if not exists
+        - Generate 3-7 subtasks based on:
+          - Implementation steps
+          - Testing requirements
+          - Documentation needs
+        - Link story file to Archon task
+        - Assign initial estimates
+
+    - step: task_assignment
+      agent: sm
+      action: assign_tasks_in_archon
+      updates: Task assignments
+      optional: true
+      condition: team_ready_for_assignments
+      notes: |
+        Task distribution:
+        - Review team member availability
+        - Consider skill sets and expertise
+        - Assign tasks in Archon
+        - Balance workload across team
+        - Set up task watchers for collaboration
+
+    - step: dependency_mapping
+      agent: architect
+      action: identify_dependencies
+      creates: Dependency matrix
+      optional: true
+      condition: complex_sprint
+      notes: |
+        Technical dependency analysis:
+        - Identify task dependencies
+        - Create dependency links in Archon
+        - Flag blocking tasks
+        - Suggest optimal execution order
+        - Create technical notes for complex dependencies
+
+    - step: sprint_kickoff
+      agent: sm
+      action: conduct_sprint_kickoff
+      creates: Sprint kickoff notes
+      notes: |
+        Sprint kickoff meeting:
+        - Review sprint goals with team
+        - Walk through selected stories
+        - Clarify any questions
+        - Confirm task assignments
+        - Set daily standup schedule
+        - Create kickoff notes in Archon
+        - Move sprint to "Active" status
+
+    - step: daily_standups
+      agent: sm
+      action: facilitate_daily_standup
+      updates: Task progress in Archon
+      repeats: daily
+      notes: |
+        Daily standup routine:
+        - Review Archon board state
+        - Each team member updates:
+          - Yesterday's progress (completed subtasks)
+          - Today's plan (tasks to move)
+          - Blockers (create blocker tasks)
+        - Update task columns in Archon
+        - Track sprint burndown
+        - Address impediments
+
+    - step: mid_sprint_review
+      agent: sm
+      action: assess_sprint_progress
+      creates: Progress report
+      condition: day_3_of_sprint
+      notes: |
+        Mid-sprint checkpoint:
+        - Review Archon metrics:
+          - Velocity tracking
+          - Burndown chart
+          - Blocked tasks
+          - Bug count
+        - Assess if sprint goals are at risk
+        - Adjust scope if needed:
+          - Move tasks back to backlog
+          - Pull in additional tasks if ahead
+        - Update stakeholders via Archon
+
+    - step: story_development
+      agent: dev
+      action: implement_stories
+      updates:
+        - Code implementation
+        - Archon task status
+      repeats: for_each_assigned_story
+      notes: |
+        Development workflow:
+        - Dev takes task from "To Do"
+        - Move to "In Progress" in Archon
+        - Implement story following specs
+        - For Android: Use MCP patterns during implementation
+          - Query architecture patterns as needed
+          - Reference UI components
+          - Follow Material3 guidelines
+        - Update subtasks as completed
+        - Create PR and link to Archon
+        - Move to "Code Review" when ready
+        - Update time tracking
+
+    - step: code_review
+      agent: dev
+      action: review_pull_requests
+      updates: PR status and Archon
+      notes: |
+        Code review process:
+        - Review PR linked to Archon task
+        - Add review comments
+        - Request changes if needed
+        - Approve when satisfied
+        - Move task to "Testing" in Archon
+
+    - step: testing
+      agent: qa
+      action: test_completed_stories
+      updates:
+        - Test results
+        - Bug tasks in Archon
+      notes: |
+        QA process:
+        - Take tasks from "Testing" column
+        - Execute test scenarios
+        - Create bug tasks for issues:
+          - Link to parent story
+          - Set severity (P0-P3)
+          - Add reproduction steps
+        - Move to "Done" if tests pass
+        - Move back to "In Progress" if bugs found
+
+    - step: bug_fixes
+      agent: dev
+      action: fix_reported_bugs
+      updates: Bug task status
+      condition: bugs_found
+      notes: |
+        Bug fix workflow:
+        - Take bug task from Archon
+        - Fix issue
+        - Update bug task with fix details
+        - Move through review/test cycle
+        - Close bug task when verified
+
+    - step: sprint_review
+      agent: po
+      action: conduct_sprint_review
+      creates: Sprint review notes
+      condition: last_day_of_sprint
+      notes: |
+        Sprint review/demo:
+        - Review completed stories in Archon
+        - Demo functionality to stakeholders
+        - Gather feedback
+        - Document acceptance
+        - Create review notes in Archon
+        - Mark stories as "Accepted"
+
+    - step: sprint_retrospective
+      agent: sm
+      action: facilitate_retrospective
+      creates:
+        - Retrospective notes
+        - Improvement tasks
+      condition: sprint_complete
+      notes: |
+        Sprint retrospective:
+        - Review Archon metrics:
+          - Velocity achieved
+          - Story completion rate
+          - Bug metrics
+          - Time tracking analysis
+        - Discuss:
+          - What went well
+          - What could improve
+          - Action items
+        - Create improvement tasks in Archon
+        - Document learnings
+
+    - step: sprint_closure
+      agent: sm
+      action: close_sprint
+      updates: Sprint status in Archon
+      notes: |
+        Sprint closure:
+        - Close sprint in Archon
+        - Move incomplete tasks to backlog
+        - Generate sprint report:
+          - Velocity
+          - Completion rate
+          - Bug metrics
+          - Time spent
+        - Archive sprint artifacts
+        - Prepare for next sprint
+
+  archon_features:
+    sprint_metrics:
+      - velocity: Story points completed
+      - burndown: Daily progress tracking
+      - completion_rate: Stories done/committed
+      - bug_rate: Bugs found per story
+      - cycle_time: Time from start to done
+
+    task_states:
+      - Backlog: Not yet in sprint
+      - To Do: In sprint, not started
+      - In Progress: Being worked on
+      - Code Review: PR submitted
+      - Testing: QA in progress
+      - Done: Completed and accepted
+
+    task_properties:
+      - story_points: Effort estimation
+      - priority: P0, P1, P2, P3
+      - labels: Feature, Bug, Tech Debt, etc.
+      - assignee: Team member responsible
+      - time_tracking: Hours spent
+      - subtasks: 3-7 per story
+      - links: PRs, documents, related tasks
+
+  best_practices:
+    planning:
+      - Keep sprints to 6 days for rapid iteration
+      - Limit WIP (Work in Progress) per developer
+      - Always have stories ready before sprint starts
+      - Include buffer for bugs and tech debt
+
+    execution:
+      - Update Archon daily
+      - Keep subtasks small and specific
+      - Move tasks promptly between columns
+      - Document blockers immediately
+
+    communication:
+      - Daily standups are non-negotiable
+      - Use Archon comments for async updates
+      - Link all artifacts to tasks
+      - Keep stakeholders informed via Archon
+
+  handoff_prompts:
+    po_to_sm: "Backlog prioritized in Archon. Ready for sprint planning."
+    sm_to_team: "Sprint #{sprint_id} created in Archon. Let's review the commitment."
+    sm_to_dev: "Stories ready in To Do column. Sprint is active."
+    dev_to_qa: "Task #{task_id} ready for testing. Moved to Testing column."
+    qa_to_dev: "Bug #{bug_id} created and linked to story #{story_id}."
+    sm_to_po: "Sprint complete. Ready for review. Metrics available in Archon."

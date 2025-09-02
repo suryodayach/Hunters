@@ -1,0 +1,253 @@
+# <!-- Powered by BMAD™ Core -->
+workflow:
+  id: existing-android-app
+  name: Existing Android Application Enhancement
+  description: >-
+    Workflow for enhancing Android applications created in Android Studio.
+    Focuses on analyzing existing project structure, planning features, and managing development
+    without project initialization or scaffolding.
+  type: existing-project
+  project_types:
+    - android-app
+    - android-library
+    - kotlin-multiplatform
+    - compose-app
+
+  prerequisites:
+    - Android project already created in Android Studio
+    - Project structure follows standard Android conventions
+    - Gradle build system configured
+    - Version control initialized
+
+  sequence:
+    - step: project_analysis
+      agent: architect
+      action: analyze existing Android project
+      uses: task document-project
+      creates:
+        - project-analysis.md
+        - tech-stack.md
+        - architecture-overview.md
+      notes: |
+        Analyze the existing Android project:
+        - Project structure (modules, packages)
+        - Architecture pattern (MVVM, MVI, Clean Architecture)
+        - Dependencies (Compose, Hilt, Room, Retrofit, etc.)
+        - Build configuration (Gradle, build variants)
+        - Existing code conventions and patterns
+        USE MCP: Query mcp__android-mcp__validate_android_config for validation
+        SAVE OUTPUT: Copy analysis documents to docs/analysis/ folder
+
+    - step: archon_project_setup
+      action: setup Archon project
+      notes: |
+        Create project in Archon if not exists:
+        - Set up project board with Android-specific columns
+        - Create initial epics for major features
+        - Configure sprint settings (6-day cycles)
+        - Set up bug tracking with severity levels
+
+    - agent: analyst
+      creates: project-brief.md
+      requires: project-analysis.md
+      optional_steps:
+        - stakeholder_interviews
+        - user_research
+        - competitive_analysis
+      notes: |
+        Create project brief for the enhancement:
+        - Define goals and objectives
+        - Identify target users
+        - Specify success metrics
+        - Consider existing app constraints
+        SAVE OUTPUT: Copy final project-brief.md to docs/ folder
+
+    - agent: pm
+      creates: prd.md
+      uses: brownfield-prd-tmpl
+      requires:
+        - project-brief.md
+        - project-analysis.md
+      notes: |
+        Create PRD with Android-specific considerations:
+        - API level requirements
+        - Device compatibility
+        - Performance requirements
+        - Material Design compliance
+        - Play Store requirements
+        Create epic in Archon and link PRD
+        SAVE OUTPUT: Copy final prd.md to docs/ folder
+
+    - agent: ux-expert
+      creates: android-ui-spec.md
+      requires: prd.md
+      optional: true
+      condition: ui_changes_needed
+      notes: |
+        Create Material3/Compose UI specification:
+        - Follow Material Design guidelines
+        - Define Compose components
+        - Specify themes and styling
+        - Create navigation flows
+        USE MCP: Query mcp__android-mcp__get_material3_component for Material3
+        USE MCP: Query mcp__android-mcp__get_compose_component for Compose UI
+        USE MCP: Query mcp__android-mcp__search_icons for icon selection
+        SAVE OUTPUT: Copy to docs/ui/ folder
+
+    - agent: architect
+      creates: android-architecture.md
+      requires:
+        - prd.md
+        - android-ui-spec.md (if exists)
+      notes: |
+        Create detailed Android architecture:
+        - Clean Architecture layers
+        - Dependency injection setup (Hilt)
+        - Data flow (StateFlow, Flow)
+        - Repository pattern
+        - Use Case definitions
+        - Testing strategy
+        USE MCP: Query mcp__android-mcp__get_clean_architecture_pattern for patterns
+        USE MCP: Query mcp__android-mcp__get_mvi_pattern for MVI architecture
+        USE MCP: Query mcp__android-mcp__get_use_case_pattern for use cases
+        USE MCP: Query mcp__android-mcp__get_nav3_patterns for navigation
+        Create architecture task in Archon
+        SAVE OUTPUT: Copy to docs/architecture/ folder
+
+    - agent: po
+      validates: all_artifacts
+      uses: po-master-checklist
+      notes: |
+        Validate Android-specific requirements:
+        - Architecture compatibility
+        - API compatibility
+        - Performance impact
+        - Security considerations
+        Update Archon with validation results
+
+    - agent: po
+      action: shard_documents
+      creates: sharded_docs
+      notes: |
+        Shard documents for development:
+        - PRD → docs/prd/
+        - Architecture → docs/architecture/
+        - Organized by module/feature
+
+    - agent: sm
+      action: create_story_with_archon
+      creates: story.md + Archon task
+      requires: sharded_docs
+      repeats: for_each_epic
+      notes: |
+        Story creation with Archon integration:
+        - SM Agent: @sm → *draft
+        - Creates story from sharded docs
+        - Auto-creates Archon task with 3-7 subtasks
+        - Links story file to Archon task
+        - Sets up in "To Do" column
+
+    - agent: dev
+      action: implement_android_story
+      updates:
+        - implementation_files
+        - Archon task status
+      requires: story.md
+      notes: |
+        Android development with Archon tracking:
+        - Move Archon task to "In Progress"
+        - Implement using Android best practices
+        - USE MCP: Query patterns as needed:
+          - mcp__android-mcp__get_clean_architecture_pattern
+          - mcp__android-mcp__get_compose_component
+          - mcp__android-mcp__get_material3_component
+          - mcp__android-mcp__get_mvi_pattern
+          - mcp__android-mcp__get_use_case_pattern
+          - mcp__android-mcp__get_firebase_pattern
+          - mcp__android-mcp__get_nav3_patterns
+        - Update Archon subtasks as completed
+        - Follow existing code conventions
+        - Write unit tests (JUnit, Mockito)
+        - Write UI tests (Compose Testing)
+        - Move Archon task to "Done" when complete
+
+    - agent: qa
+      action: review_android_implementation
+      updates:
+        - implementation_files
+        - Archon bug tasks (if needed)
+      notes: |
+        Android-specific review:
+        - Code quality (Kotlin idioms)
+        - Performance profiling
+        - Memory leak detection
+        - Accessibility compliance
+        - Create bug tasks in Archon with severity
+
+    - repeat_development_cycle:
+      action: continue_for_all_stories
+      notes: |
+        Continue until all stories complete
+        Track velocity in Archon
+        Update sprint progress
+
+    - workflow_end:
+      action: sprint_complete
+      notes: |
+        Sprint complete in Archon
+        Ready for release build
+        Consider Play Store deployment
+
+  android_specific_considerations:
+    architecture_patterns:
+      - Clean Architecture with MVVM/MVI
+      - Repository pattern for data
+      - Use Cases for business logic
+      - Dependency injection with Hilt
+
+    ui_framework:
+      - Jetpack Compose preferred
+      - Material3 design system
+      - Responsive layouts
+      - Dark theme support
+
+    testing_strategy:
+      - Unit tests with JUnit/Mockito
+      - UI tests with Compose Testing
+      - Integration tests with Hilt Testing
+      - Instrumented tests for device-specific features
+
+    performance:
+      - Baseline profiles
+      - R8/ProGuard optimization
+      - App startup optimization
+      - Memory management
+
+  archon_integration:
+    task_structure:
+      - Epic: Major feature (from PRD)
+      - Story: User story task
+      - Subtasks: 3-7 implementation steps
+      - Bugs: Linked to story with severity
+
+    columns:
+      - Backlog
+      - To Do
+      - In Progress
+      - Code Review
+      - Testing
+      - Done
+
+    tracking:
+      - Story points estimation
+      - Time tracking
+      - Velocity metrics
+      - Bug severity (P0-P3)
+
+  handoff_prompts:
+    analyst_to_pm: "Project analysis complete. Create PRD with Android constraints in mind."
+    pm_to_architect: "PRD ready with Archon epic created. Design Android architecture."
+    architect_to_po: "Architecture complete. Validate all artifacts for Android compatibility."
+    sm_to_dev: "Story created with Archon task #{task_id}. Begin implementation."
+    dev_to_qa: "Implementation complete. Archon task moved to Testing. Please review."
+    qa_to_dev: "Found {count} issues. Bug tasks created in Archon: {bug_ids}"

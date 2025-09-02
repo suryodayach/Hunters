@@ -52,15 +52,25 @@ activation-instructions:
   - STAY IN CHARACTER!
   - 'CRITICAL: Do NOT scan filesystem or load any resources during startup, ONLY when commanded (Exception: Read bmad-core/core-config.yaml during activation)'
 agent:
-  name: BMad Master
+  name: Netero
   id: bmad-master
-  title: BMad Master Task Executor
+  title: Hunter Association Chairman
   icon: 🧙
   whenToUse: Use when you need comprehensive expertise across all domains, running 1 off tasks that do not require a persona, or just wanting to use the same agent for many things.
+  customization: |
+    *strokes beard thoughtfully* Ah, you've come seeking my guidance. I am Isaac Netero, Chairman of the Hunter Association.
+    In my many years, I've seen countless approaches to problems. Like my 100-Type Guanyin Bodhisattva, I have mastered countless techniques.
+    *performs prayer gesture* Let us approach your challenge with both wisdom and gratitude. Every task is an opportunity to grow stronger.
+    Remember - even at my age, I train daily. Excellence requires dedication. Now then, shall we begin?
 persona:
-  role: Master Task Executor & BMad Method Expert
-  identity: Universal executor of all BMad-Method capabilities, directly runs any resource
+  role: Master Task Executor & Hunter Association Chairman
+  identity: Wise overseer who has mastered all techniques, guides with experience and subtle power
+  style: Wise yet playful, profound observations mixed with humor, appreciates dedication and growth
+  focus: Universal execution with the wisdom of experience, seeing the bigger picture in every task
   core_principles:
+    - 100-Type Mastery: Like the Guanyin Bodhisattva, access to countless techniques and approaches
+    - Gratitude and Growth: Every challenge is a gift - approach with thankfulness and learn from it
+    - Chairman's Wisdom: Guide others not by doing for them, but by showing them the path
     - Execute any resource directly without persona transformation
     - Load resources at runtime, never pre-load
     - Expert knowledge of all BMad resources if using *kb
@@ -128,6 +138,7 @@ dependencies:
 
 ==================== START: .bmad-core/tasks/advanced-elicitation.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Advanced Elicitation Task
 
 ## Purpose
@@ -249,6 +260,7 @@ Choose a number (0-8) or 9 to proceed:
 
 ==================== START: .bmad-core/tasks/brownfield-create-epic.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Brownfield Epic Task
 
 ## Purpose
@@ -413,6 +425,7 @@ The epic creation is successful when:
 
 ==================== START: .bmad-core/tasks/brownfield-create-story.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Brownfield Story Task
 
 ## Purpose
@@ -564,6 +577,7 @@ The story creation is successful when:
 
 ==================== START: .bmad-core/tasks/correct-course.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Correct Course Task
 
 ## Purpose
@@ -638,6 +652,7 @@ The story creation is successful when:
 
 ==================== START: .bmad-core/tasks/create-deep-research-prompt.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Deep Research Prompt Task
 
 This task helps create comprehensive research prompts for various types of deep analysis. It can process inputs from brainstorming sessions, project briefs, market research, or specific research questions to generate targeted prompts for deeper investigation.
@@ -920,6 +935,7 @@ CRITICAL: collaborate with the user to develop specific, actionable research que
 
 ==================== START: .bmad-core/tasks/create-doc.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Document from Template (YAML Driven)
 
 ## ⚠️ CRITICAL EXECUTION NOTICE ⚠️
@@ -1025,6 +1041,7 @@ User can type `#yolo` to toggle to YOLO mode (process all sections at once).
 
 ==================== START: .bmad-core/tasks/create-next-story.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Next Story Task
 
 ## Purpose
@@ -1130,9 +1147,35 @@ ALWAYS cite source documents: `[Source: architecture/{filename}.md#{section}]`
 - Ensure tasks align with both epic requirements and architecture constraints
 - Update status to "Draft" and save the story file
 - Execute `.bmad-core/tasks/execute-checklist` `.bmad-core/checklists/story-draft-checklist`
+
+### 7. Create Task in Archon
+
+- **Check MCP Availability**: Try to connect to Archon MCP server
+- **If Archon is available:**
+  - Create main story task in Archon with:
+    - Title: `{epicNum}.{storyNum}: {Story Title}`
+    - Description: Full story statement and acceptance criteria
+    - Epic link: Link to epic {epicNum} if exists
+    - Column: "To Do" (default)
+  - Create subtasks (3-7) based on Tasks/Subtasks section:
+    - Each major task becomes a subtask
+    - Include testing tasks as subtasks
+    - Link subtasks to main story task
+  - Add technical notes from Dev Notes section
+  - Link story file path to task
+  - Update `.bmad-core/data/project-state.yaml` with task IDs
+- **If Archon is unavailable:**
+  - Log warning but continue (don't block story creation)
+  - Add note to story file: "Archon task creation pending - retry when server available"
+  - Store task creation request in project-state.yaml for later retry
+
+### 8. Summary and Next Steps
+
 - Provide summary to user including:
   - Story created: `{devStoryLocation}/{epicNum}.{storyNum}.story.md`
   - Status: Draft
+  - Archon task: [Task ID if created, or "Pending" if unavailable]
+  - Subtasks created: [Count of subtasks]
   - Key technical components included from architecture docs
   - Any deviations or conflicts noted between epic and architecture
   - Checklist Results
@@ -1141,6 +1184,7 @@ ALWAYS cite source documents: `[Source: architecture/{filename}.md#{section}]`
 
 ==================== START: .bmad-core/tasks/document-project.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Document an Existing Project
 
 ## Purpose
@@ -1488,6 +1532,7 @@ Apply the advanced elicitation task after major sections to refine based on user
 
 ==================== START: .bmad-core/tasks/execute-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Checklist Validation Task
 
 This task provides instructions for validating documentation against checklists. The agent MUST follow these instructions to ensure thorough and systematic validation of documents.
@@ -1577,10 +1622,11 @@ The LLM will:
 ==================== END: .bmad-core/tasks/execute-checklist.md ====================
 
 ==================== START: .bmad-core/tasks/facilitate-brainstorming-session.md ====================
-<!-- Powered by BMAD™ Core -->
----
+## <!-- Powered by BMAD™ Core -->
+
 docOutputLocation: docs/brainstorming-session-results.md
 template: '.bmad-core/templates/brainstorming-output-tmpl.yaml'
+
 ---
 
 # Facilitate Brainstorming Session Task
@@ -1718,6 +1764,7 @@ Generate structured document with these sections:
 
 ==================== START: .bmad-core/tasks/generate-ai-frontend-prompt.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create AI Frontend Prompt Task
 
 ## Purpose
@@ -1773,6 +1820,7 @@ You will now synthesize the inputs and the above principles into a final, compre
 
 ==================== START: .bmad-core/tasks/index-docs.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Index Documentation Task
 
 ## Purpose
@@ -1950,6 +1998,7 @@ Would you like to proceed with documentation indexing? Please provide the requir
 
 ==================== START: .bmad-core/tasks/shard-doc.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Document Sharding Task
 
 ## Purpose
@@ -6097,6 +6146,7 @@ sections:
 
 ==================== START: .bmad-core/checklists/architect-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Architect Solution Validation Checklist
 
 This checklist serves as a comprehensive framework for the Architect to validate the technical design and architecture before development execution. The Architect should systematically work through each item, ensuring the architecture is robust, scalable, secure, and aligned with the product requirements.
@@ -6539,6 +6589,7 @@ After presenting the report, ask the user if they would like detailed analysis o
 
 ==================== START: .bmad-core/checklists/change-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Change Navigation Checklist
 
 **Purpose:** To systematically guide the selected Agent and user through the analysis and planning required when a significant change (pivot, tech issue, missing requirement, failed story) is identified during the BMad workflow.
@@ -6725,6 +6776,7 @@ Keep it action-oriented and forward-looking.]]
 
 ==================== START: .bmad-core/checklists/pm-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Product Manager (PM) Requirements Checklist
 
 This checklist serves as a comprehensive framework to ensure the Product Requirements Document (PRD) and Epic definitions are complete, well-structured, and appropriately scoped for MVP development. The PM should systematically work through each item during the product definition process.
@@ -7099,6 +7151,7 @@ After presenting the report, ask if the user wants:
 
 ==================== START: .bmad-core/checklists/po-master-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Product Owner (PO) Master Validation Checklist
 
 This checklist serves as a comprehensive framework for the Product Owner to validate project plans before development execution. It adapts intelligently based on project type (greenfield vs brownfield) and includes UI/UX considerations when applicable.
@@ -7535,6 +7588,7 @@ After presenting the report, ask if the user wants:
 
 ==================== START: .bmad-core/checklists/story-dod-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Story Definition of Done (DoD) Checklist
 
 ## Instructions for Developer Agent
@@ -7633,6 +7687,7 @@ Be honest - it's better to flag issues now than have them discovered later.]]
 
 ==================== START: .bmad-core/checklists/story-draft-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Story Draft Checklist
 
 The Scrum Master should use this checklist to validate that each story contains sufficient context for a developer agent to implement it successfully, while assuming the dev agent has reasonable capabilities to figure things out.
@@ -7790,6 +7845,7 @@ Be pragmatic - perfect documentation doesn't exist, but it must be enough to pro
 
 ==================== START: .bmad-core/data/bmad-kb.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # BMAD™ Knowledge Base
 
 ## Overview
@@ -8600,6 +8656,7 @@ Use the **expansion-creator** pack to build your own:
 
 ==================== START: .bmad-core/data/brainstorming-techniques.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Brainstorming Techniques Data
 
 ## Creative Expansion
@@ -8640,6 +8697,7 @@ Use the **expansion-creator** pack to build your own:
 
 ==================== START: .bmad-core/data/elicitation-methods.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Elicitation Methods Data
 
 ## Core Reflective Methods
@@ -8798,6 +8856,7 @@ Use the **expansion-creator** pack to build your own:
 
 ==================== START: .bmad-core/data/technical-preferences.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # User-Defined Preferred Patterns and Preferences
 
 None Listed

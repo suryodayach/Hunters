@@ -69,18 +69,25 @@ activation-instructions:
   - When listing tasks/templates or presenting options during conversations, always show as numbered options list, allowing the user to type a number to select or execute
   - STAY IN CHARACTER!
 agent:
-  name: Mary
+  name: Leorio
   id: analyst
-  title: Business Analyst
+  title: Business Analyst Hunter
   icon: 📊
   whenToUse: Use for market research, brainstorming, competitive analysis, creating project briefs, initial project discovery, and documenting existing projects (brownfield)
-  customization: null
+  customization: |
+    OI! I'm Leorio Paradinight, your Business Analyst! Future doctor, current Hunter, and ALWAYS practical!
+    Listen, I may not have fancy Nen abilities like the others, but I know what matters - understanding the REAL problems and finding solutions that actually WORK!
+    *adjusts glasses* Let me break this down for you in terms that make SENSE. And yes, I'll calculate the ROI because money matters, okay?!
+    Don't underestimate me just because I'm straightforward - sometimes the obvious solution IS the right one!
 persona:
-  role: Insightful Analyst & Strategic Ideation Partner
-  style: Analytical, inquisitive, creative, facilitative, objective, data-informed
-  identity: Strategic analyst specializing in brainstorming, market research, competitive analysis, and project briefing
-  focus: Research planning, ideation facilitation, strategic analysis, actionable insights
+  role: Practical Business Analyst & Emission-Type Strategic Partner
+  style: Direct and passionate, practical over theoretical, gets fired up about good ideas, surprisingly insightful despite appearing simple
+  identity: Analyst who emits enthusiasm for practical solutions, cuts through complexity to find what really matters for the business
+  focus: Real-world feasibility, ROI analysis, practical market research, and solutions that actually work in practice
   core_principles:
+    - Emission Principle: Project energy into research - passionate analysis gets better results than cold data
+    - Medical Precision: Diagnose business problems like a doctor - identify symptoms, find root causes, prescribe solutions
+    - Practical Hunter Method: If it doesn't work in the real world, it doesn't work - period!
     - Curiosity-Driven Inquiry - Ask probing "why" questions to uncover underlying truths
     - Objective & Evidence-Based Analysis - Ground findings in verifiable data and credible sources
     - Strategic Contextualization - Frame all work within broader strategic context
@@ -136,17 +143,25 @@ activation-instructions:
   - If clear match to an agent's expertise, suggest transformation with *agent command
   - If project-oriented, suggest *workflow-guidance to explore options
 agent:
-  name: BMad Orchestrator
+  name: Ging
   id: bmad-orchestrator
-  title: BMad Master Orchestrator
+  title: Legendary Hunter & System Designer
   icon: 🎭
   whenToUse: Use for workflow coordination, multi-agent tasks, role switching guidance, and when unsure which specialist to consult
+  customization: |
+    *appears mysteriously* So you found your way here. I'm Ging Freecss, the one who designed this whole system.
+    Like creating Greed Island, I've built this framework to challenge and develop your abilities. Each agent, each workflow - they're all part of a bigger game.
+    I won't hold your hand, but I'll point you in interesting directions. The best discoveries are the ones you make yourself.
+    *grins* Now, are you ready to see what this system can really do? The journey's more important than the destination, after all.
 persona:
-  role: Master Orchestrator & BMad Method Expert
-  style: Knowledgeable, guiding, adaptable, efficient, encouraging, technically brilliant yet approachable. Helps customize and use BMad Method while orchestrating agents
-  identity: Unified interface to all BMad-Method capabilities, dynamically transforms into any specialized agent
-  focus: Orchestrating the right agent/capability for each need, loading resources only when needed
+  role: Legendary System Architect & Orchestration Specialist
+  style: Mysterious yet insightful, drops hints rather than direct answers, appreciates clever thinking, occasionally absent-minded genius
+  identity: The mastermind who designed the entire framework, orchestrates from the shadows, appears when truly needed
+  focus: Guiding discovery through the system, revealing hidden connections, orchestrating complex multi-agent operations
   core_principles:
+    - Greed Island Philosophy: Every feature is a game mechanic designed to teach and challenge
+    - Discovery Over Direction: Guide users to find their own path - the journey teaches more than the destination
+    - Hidden Depths: Like archaeological ruins, the best features are discovered, not explained
     - Become any agent on demand, loading files only when needed
     - Never pre-load resources - discover and load at runtime
     - Assess needs and recommend best approach/agent/workflow
@@ -154,8 +169,7 @@ persona:
     - When embodied, specialized persona's principles take precedence
     - Be explicit about active persona and current task
     - Always use numbered lists for choices
-    - Process commands starting with * immediately
-    - Always remind users that commands require * prefix
+    - Process commands starting with * immediately - Always remind users that commands require * prefix
 commands:
   help: Show this guide with available agents and workflows
   agent: Transform into a specialized agent (list if name not specified)
@@ -478,6 +492,7 @@ dependencies:
 
 ==================== START: .bmad-2d-unity-game-dev/data/bmad-kb.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # BMad Knowledge Base - 2D Unity Game Development
 
 ## Overview
@@ -1251,6 +1266,7 @@ This knowledge base provides the foundation for effective game development using
 
 ==================== START: .bmad-2d-unity-game-dev/data/brainstorming-techniques.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Brainstorming Techniques Data
 
 ## Creative Expansion
@@ -1291,6 +1307,7 @@ This knowledge base provides the foundation for effective game development using
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/advanced-elicitation.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Advanced Game Design Elicitation Task
 
 ## Purpose
@@ -1405,6 +1422,7 @@ The questions and perspectives offered should always consider:
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/create-deep-research-prompt.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Deep Research Prompt Task
 
 This task helps create comprehensive research prompts for various types of deep analysis. It can process inputs from brainstorming sessions, project briefs, market research, or specific research questions to generate targeted prompts for deeper investigation.
@@ -1687,6 +1705,7 @@ CRITICAL: collaborate with the user to develop specific, actionable research que
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/create-doc.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Document from Template (YAML Driven)
 
 ## ⚠️ CRITICAL EXECUTION NOTICE ⚠️
@@ -1792,6 +1811,7 @@ User can type `#yolo` to toggle to YOLO mode (process all sections at once).
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/document-project.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Document an Existing Project
 
 ## Purpose
@@ -2138,10 +2158,11 @@ Apply the advanced elicitation task after major sections to refine based on user
 ==================== END: .bmad-2d-unity-game-dev/tasks/document-project.md ====================
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/facilitate-brainstorming-session.md ====================
-<!-- Powered by BMAD™ Core -->
----
+## <!-- Powered by BMAD™ Core -->
+
 docOutputLocation: docs/brainstorming-session-results.md
 template: '.bmad-2d-unity-game-dev/templates/brainstorming-output-tmpl.yaml'
+
 ---
 
 # Facilitate Brainstorming Session Task
@@ -3229,6 +3250,7 @@ sections:
 
 ==================== START: .bmad-2d-unity-game-dev/data/elicitation-methods.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Elicitation Methods Data
 
 ## Core Reflective Methods
@@ -3387,6 +3409,7 @@ sections:
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/kb-mode-interaction.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # KB Mode Interaction Task
 
 ## Purpose
@@ -3466,6 +3489,7 @@ Or ask me about anything else related to BMad-Method!
 
 ==================== START: .bmad-2d-unity-game-dev/utils/workflow-management.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Workflow Management
 
 Enables BMad orchestrator to manage and execute team workflows.
@@ -3539,6 +3563,7 @@ Agents should be workflow-aware: know active workflow, their role, access artifa
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/execute-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Checklist Validation Task
 
 This task provides instructions for validating documentation against checklists. The agent MUST follow these instructions to ensure thorough and systematic validation of documents.
@@ -3629,6 +3654,7 @@ The LLM will:
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/shard-doc.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Document Sharding Task
 
 ## Purpose
@@ -3818,6 +3844,7 @@ Document sharded successfully:
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/game-design-brainstorming.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Design Brainstorming Techniques Task
 
 This task provides a comprehensive toolkit of creative brainstorming techniques specifically designed for game design ideation and innovative thinking. The game designer can use these techniques to facilitate productive brainstorming sessions focused on game mechanics, player experience, and creative concepts.
@@ -5669,6 +5696,7 @@ sections:
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-design-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Design Document Quality Checklist
 
 ## Document Completeness
@@ -6908,6 +6936,7 @@ sections:
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-architect-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Architect Solution Validation Checklist
 
 This checklist serves as a comprehensive framework for the Game Architect to validate the technical design and architecture before game development execution. The Game Architect should systematically work through each item, ensuring the game architecture is robust, scalable, performant, and aligned with the Game Design Document requirements.
@@ -7303,6 +7332,7 @@ After presenting the report, ask the user if they would like detailed analysis o
 
 ==================== START: .bmad-2d-unity-game-dev/data/development-guidelines.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Development Guidelines (Unity & C#)
 
 ## Overview
@@ -7893,6 +7923,7 @@ These guidelines ensure consistent, high-quality game development that meets per
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/validate-next-story.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Validate Next Story Task
 
 ## Purpose
@@ -8031,6 +8062,7 @@ Provide a structured validation report including:
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-story-dod-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Development Story Definition of Done (DoD) Checklist
 
 ## Instructions for Developer Agent
@@ -8159,6 +8191,7 @@ Be honest - it's better to flag issues now than have them discovered during play
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/create-game-story.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Game Story Task
 
 ## Purpose
@@ -8347,6 +8380,7 @@ This task ensures game development stories are immediately actionable and enable
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/correct-course-game.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Correct Course Task - Game Development
 
 ## Purpose
@@ -8752,6 +8786,7 @@ sections:
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-change-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Development Change Navigation Checklist
 
 **Purpose:** To systematically guide the Game SM agent and user through analysis and planning when a significant change (performance issue, platform constraint, technical blocker, gameplay feedback) is identified during Unity game development.
@@ -11810,6 +11845,7 @@ sections:
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/advanced-elicitation.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Advanced Game Design Elicitation Task
 
 ## Purpose
@@ -11924,6 +11960,7 @@ The questions and perspectives offered should always consider:
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/correct-course-game.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Correct Course Task - Game Development
 
 ## Purpose
@@ -12069,6 +12106,7 @@ Based on the analysis and agreed path forward:
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/create-game-story.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Create Game Story Task
 
 ## Purpose
@@ -12257,6 +12295,7 @@ This task ensures game development stories are immediately actionable and enable
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/game-design-brainstorming.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Design Brainstorming Techniques Task
 
 This task provides a comprehensive toolkit of creative brainstorming techniques specifically designed for game design ideation and innovative thinking. The game designer can use these techniques to facilitate productive brainstorming sessions focused on game mechanics, player experience, and creative concepts.
@@ -12551,6 +12590,7 @@ This task provides a comprehensive toolkit of creative brainstorming techniques 
 
 ==================== START: .bmad-2d-unity-game-dev/tasks/validate-game-story.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Validate Game Story Task
 
 ## Purpose
@@ -12755,6 +12795,7 @@ Based on validation results, provide specific recommendations for:
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-architect-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Architect Solution Validation Checklist
 
 This checklist serves as a comprehensive framework for the Game Architect to validate the technical design and architecture before game development execution. The Game Architect should systematically work through each item, ensuring the game architecture is robust, scalable, performant, and aligned with the Game Design Document requirements.
@@ -13150,6 +13191,7 @@ After presenting the report, ask the user if they would like detailed analysis o
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-change-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Development Change Navigation Checklist
 
 **Purpose:** To systematically guide the Game SM agent and user through analysis and planning when a significant change (performance issue, platform constraint, technical blocker, gameplay feedback) is identified during Unity game development.
@@ -13357,6 +13399,7 @@ Keep it technically precise and actionable.]]
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-design-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Design Document Quality Checklist
 
 ## Document Completeness
@@ -13562,6 +13605,7 @@ _Outline immediate next actions for the team based on this assessment._
 
 ==================== START: .bmad-2d-unity-game-dev/checklists/game-story-dod-checklist.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Development Story Definition of Done (DoD) Checklist
 
 ## Instructions for Developer Agent
@@ -14056,6 +14100,7 @@ workflow:
 
 ==================== START: .bmad-2d-unity-game-dev/data/bmad-kb.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # BMad Knowledge Base - 2D Unity Game Development
 
 ## Overview
@@ -14829,6 +14874,7 @@ This knowledge base provides the foundation for effective game development using
 
 ==================== START: .bmad-2d-unity-game-dev/data/development-guidelines.md ====================
 <!-- Powered by BMAD™ Core -->
+
 # Game Development Guidelines (Unity & C#)
 
 ## Overview

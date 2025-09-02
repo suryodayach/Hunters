@@ -1,0 +1,330 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: tech-stack-discovery
+  name: Technology Stack Discovery Template
+  description: Template for documenting discovered technologies, dependencies, and patterns in existing projects
+  type: technical
+
+document:
+  title: "Technology Stack Discovery: {{PROJECT_NAME}}"
+  sections:
+    - id: overview
+      title: Stack Overview
+      content: |
+        ## Technology Stack Summary
+
+        **Project:** {{PROJECT_NAME}}
+        **Discovery Date:** {{DATE}}
+        **Project Type:** {{WEB_APP|ANDROID_APP|IOS_APP|BACKEND_SERVICE|LIBRARY}}
+
+        ### Stack Classification
+        - **Maturity Level:** {{CUTTING_EDGE|MODERN|STABLE|LEGACY}}
+        - **Complexity:** {{SIMPLE|MODERATE|COMPLEX|ENTERPRISE}}
+        - **Maintenance State:** {{ACTIVELY_MAINTAINED|MAINTAINED|MINIMAL|ABANDONED}}
+
+    - id: core-technologies
+      title: Core Technologies
+      content: |
+        ## Primary Technologies
+
+        ### Language & Runtime
+        | Component | Technology | Version | EOL Date | Notes |
+        |-----------|-----------|---------|----------|-------|
+        | Primary Language | {{LANGUAGE}} | {{VERSION}} | {{EOL}} | {{NOTES}} |
+        | Runtime/VM | {{RUNTIME}} | {{VERSION}} | {{EOL}} | {{NOTES}} |
+        | Type System | {{TYPESCRIPT/KOTLIN/etc}} | {{VERSION}} | {{EOL}} | {{NOTES}} |
+
+        ### Framework Stack
+        | Layer | Framework | Version | Latest | Update Priority |
+        |-------|-----------|---------|--------|-----------------|
+        | UI Framework | {{FRAMEWORK}} | {{CURRENT}} | {{LATEST}} | {{HIGH/MEDIUM/LOW}} |
+        | State Management | {{LIBRARY}} | {{CURRENT}} | {{LATEST}} | {{HIGH/MEDIUM/LOW}} |
+        | Routing | {{LIBRARY}} | {{CURRENT}} | {{LATEST}} | {{HIGH/MEDIUM/LOW}} |
+        | Data Layer | {{LIBRARY}} | {{CURRENT}} | {{LATEST}} | {{HIGH/MEDIUM/LOW}} |
+
+    - id: dependency-analysis
+      title: Dependency Analysis
+      content: |
+        ## Dependencies Deep Dive
+
+        ### Critical Dependencies
+        {{Dependencies that are essential to the application}}
+
+        | Package | Version | Purpose | Alternatives | Risk Level |
+        |---------|---------|---------|--------------|------------|
+        | {{PACKAGE}} | {{VERSION}} | {{PURPOSE}} | {{ALTERNATIVES}} | {{RISK}} |
+
+        ### Utility Libraries
+        | Package | Version | Purpose | Can Remove? |
+        |---------|---------|---------|-------------|
+        | {{PACKAGE}} | {{VERSION}} | {{PURPOSE}} | {{YES/NO}} |
+
+        ### Development Dependencies
+        | Tool | Version | Purpose | Required? |
+        |------|---------|---------|-----------|
+        | {{TOOL}} | {{VERSION}} | {{PURPOSE}} | {{YES/NO}} |
+
+        ### Dependency Health
+        - **Total Dependencies:** {{COUNT}}
+        - **Outdated (Major):** {{COUNT}}
+        - **Outdated (Minor):** {{COUNT}}
+        - **Security Vulnerabilities:** {{COUNT}}
+        - **Deprecated Packages:** {{LIST}}
+
+    - id: build-toolchain
+      title: Build & Toolchain
+      content: |
+        ## Build System Analysis
+
+        ### Build Tools
+        | Tool | Version | Configuration | Purpose |
+        |------|---------|---------------|---------|
+        | {{BUILD_TOOL}} | {{VERSION}} | {{CONFIG_FILE}} | {{PURPOSE}} |
+
+        ### Build Process
+        ```
+        {{Build command flow and stages}}
+        ```
+
+        ### Build Optimization
+        - **Bundle/APK Size:** {{SIZE}}
+        - **Build Time:** {{TIME}}
+        - **Optimization Level:** {{LEVEL}}
+        - **Tree Shaking:** {{ENABLED/DISABLED}}
+        - **Code Splitting:** {{ENABLED/DISABLED}}
+
+        ### Asset Pipeline
+        | Asset Type | Processing | Tool | Output |
+        |------------|------------|------|--------|
+        | {{TYPE}} | {{PROCESS}} | {{TOOL}} | {{OUTPUT}} |
+
+    - id: testing-stack
+      title: Testing Stack
+      content: |
+        ## Testing Technologies
+
+        ### Test Frameworks
+        | Level | Framework | Version | Config | Coverage |
+        |-------|-----------|---------|--------|----------|
+        | Unit | {{FRAMEWORK}} | {{VERSION}} | {{FILE}} | {{%}} |
+        | Integration | {{FRAMEWORK}} | {{VERSION}} | {{FILE}} | {{%}} |
+        | E2E | {{FRAMEWORK}} | {{VERSION}} | {{FILE}} | {{%}} |
+
+        ### Testing Tools
+        - **Test Runner:** {{TOOL}}
+        - **Mocking:** {{LIBRARY}}
+        - **Assertions:** {{LIBRARY}}
+        - **Coverage:** {{TOOL}}
+        - **Snapshot Testing:** {{ENABLED/DISABLED}}
+
+        ### Test Configuration
+        ```{{CONFIG_TYPE}}
+        {{Test configuration snippet}}
+        ```
+
+    - id: api-integration
+      title: API & Integration Layer
+      content: |
+        ## API Integration Stack
+
+        ### HTTP Client
+        - **Library:** {{AXIOS/FETCH/RETROFIT/etc}}
+        - **Version:** {{VERSION}}
+        - **Configuration:** {{Details}}
+
+        ### API Patterns
+        - **Architecture:** {{REST/GraphQL/gRPC/WebSocket}}
+        - **Authentication:** {{METHOD}}
+        - **State Sync:** {{PATTERN}}
+        - **Caching:** {{STRATEGY}}
+
+        ### Data Serialization
+        | Format | Library | Version | Usage |
+        |--------|---------|---------|-------|
+        | {{JSON/Protocol Buffers/etc}} | {{LIBRARY}} | {{VERSION}} | {{USAGE}} |
+
+        ### External Services
+        | Service | SDK/Library | Version | Purpose |
+        |---------|-------------|---------|---------|
+        | {{SERVICE}} | {{SDK}} | {{VERSION}} | {{PURPOSE}} |
+
+    - id: state-persistence
+      title: State & Persistence
+      content: |
+        ## State Management & Persistence
+
+        ### State Management
+        - **Pattern:** {{REDUX/MOBX/CONTEXT/etc}}
+        - **Library:** {{LIBRARY}}
+        - **Version:** {{VERSION}}
+        - **DevTools:** {{AVAILABLE/NOT_AVAILABLE}}
+
+        ### Local Storage
+        | Type | Technology | Usage | Size |
+        |------|------------|-------|------|
+        | {{TYPE}} | {{TECH}} | {{USAGE}} | {{SIZE}} |
+
+        ### Database
+        - **Type:** {{SQL/NoSQL/Key-Value}}
+        - **Library:** {{LIBRARY}}
+        - **ORM/ODM:** {{LIBRARY}}
+        - **Migrations:** {{TOOL}}
+
+        ### Caching
+        | Level | Technology | TTL | Size Limit |
+        |-------|------------|-----|------------|
+        | {{LEVEL}} | {{TECH}} | {{TTL}} | {{LIMIT}} |
+
+    - id: ui-styling
+      title: UI & Styling Stack
+      content: |
+        ## UI Component & Styling
+
+        ### Component Library
+        - **UI Library:** {{MUI/Ant Design/Bootstrap/etc}}
+        - **Version:** {{VERSION}}
+        - **Custom Components:** {{COUNT}}
+        - **Theme System:** {{DESCRIPTION}}
+
+        ### Styling Approach
+        - **Method:** {{CSS/SASS/CSS-in-JS/CSS Modules}}
+        - **Library:** {{LIBRARY}}
+        - **Design Tokens:** {{USED/NOT_USED}}
+        - **Dark Mode:** {{SUPPORTED/NOT_SUPPORTED}}
+
+        ### Animation
+        - **Library:** {{LIBRARY}}
+        - **Approach:** {{CSS/JS/Native}}
+
+        ### Icons & Assets
+        | Type | Source | Method | Count |
+        |------|--------|--------|-------|
+        | {{Icons/Images/Fonts}} | {{SOURCE}} | {{METHOD}} | {{COUNT}} |
+
+    - id: dev-experience
+      title: Developer Experience
+      content: |
+        ## Developer Tools & Experience
+
+        ### Code Quality Tools
+        | Tool | Version | Config | Enforcement |
+        |------|---------|--------|-------------|
+        | Linter | {{TOOL}} | {{FILE}} | {{LEVEL}} |
+        | Formatter | {{TOOL}} | {{FILE}} | {{LEVEL}} |
+        | Type Checker | {{TOOL}} | {{FILE}} | {{LEVEL}} |
+
+        ### Development Server
+        - **Tool:** {{WEBPACK/VITE/etc}}
+        - **HMR:** {{ENABLED/DISABLED}}
+        - **Proxy:** {{CONFIGURED/NOT_CONFIGURED}}
+        - **Source Maps:** {{ENABLED/DISABLED}}
+
+        ### Debugging Tools
+        - **DevTools:** {{LIST}}
+        - **Logging:** {{LIBRARY}}
+        - **Error Tracking:** {{SERVICE}}
+
+        ### Documentation
+        - **API Docs:** {{TOOL/NONE}}
+        - **Component Docs:** {{STORYBOOK/NONE}}
+        - **Code Comments:** {{LEVEL}}
+
+    - id: deployment-stack
+      title: Deployment Stack
+      content: |
+        ## Deployment & Infrastructure
+
+        ### Deployment Target
+        | Environment | Platform | Method | Automation |
+        |-------------|----------|--------|------------|
+        | {{ENV}} | {{PLATFORM}} | {{METHOD}} | {{LEVEL}} |
+
+        ### CI/CD Tools
+        - **CI Platform:** {{TOOL}}
+        - **Build Pipeline:** {{DESCRIPTION}}
+        - **Test Pipeline:** {{DESCRIPTION}}
+        - **Deploy Pipeline:** {{DESCRIPTION}}
+
+        ### Container/Package
+        - **Type:** {{DOCKER/APK/IPA/NPM/etc}}
+        - **Registry:** {{LOCATION}}
+        - **Versioning:** {{STRATEGY}}
+
+        ### Monitoring
+        | Type | Tool | Integration |
+        |------|------|-------------|
+        | {{APM/Logging/Metrics}} | {{TOOL}} | {{METHOD}} |
+
+    - id: security-compliance
+      title: Security & Compliance
+      content: |
+        ## Security Technologies
+
+        ### Security Libraries
+        | Purpose | Library | Version | Config |
+        |---------|---------|---------|--------|
+        | {{PURPOSE}} | {{LIBRARY}} | {{VERSION}} | {{CONFIG}} |
+
+        ### Authentication
+        - **Method:** {{JWT/OAuth/Session/etc}}
+        - **Provider:** {{PROVIDER}}
+        - **Library:** {{LIBRARY}}
+        - **MFA:** {{ENABLED/DISABLED}}
+
+        ### Data Protection
+        - **Encryption:** {{AT_REST/IN_TRANSIT/BOTH}}
+        - **Sensitive Data:** {{HANDLING}}
+        - **PII Management:** {{METHOD}}
+
+        ### Security Scanning
+        - **SAST Tool:** {{TOOL/NONE}}
+        - **Dependency Scan:** {{TOOL/NONE}}
+        - **Secret Scan:** {{TOOL/NONE}}
+
+    - id: recommendations
+      title: Stack Recommendations
+      content: |
+        ## Technology Recommendations
+
+        ### Immediate Updates Needed
+        | Component | Current | Recommended | Reason | Priority |
+        |-----------|---------|-------------|--------|----------|
+        | {{COMPONENT}} | {{CURRENT}} | {{RECOMMENDED}} | {{REASON}} | {{PRIORITY}} |
+
+        ### Technology Migrations
+        | From | To | Benefit | Effort | Timeline |
+        |------|-----|---------|--------|----------|
+        | {{FROM}} | {{TO}} | {{BENEFIT}} | {{EFFORT}} | {{TIMELINE}} |
+
+        ### New Additions
+        | Technology | Purpose | Impact | Complexity |
+        |------------|---------|--------|------------|
+        | {{TECH}} | {{PURPOSE}} | {{IMPACT}} | {{COMPLEXITY}} |
+
+        ### Deprecations
+        | Remove | Replace With | Reason | Risk |
+        |--------|--------------|--------|------|
+        | {{TECH}} | {{REPLACEMENT}} | {{REASON}} | {{RISK}} |
+
+        ### Stack Modernization Path
+        1. **Phase 1:** {{DESCRIPTION}}
+        2. **Phase 2:** {{DESCRIPTION}}
+        3. **Phase 3:** {{DESCRIPTION}}
+
+  metadata:
+    version: "1.0"
+    created: "{{DATE}}"
+    modified: "{{DATE}}"
+
+prompts:
+  discovery: |
+    [[LLM: When discovering the technology stack:
+    1. Check package.json, build.gradle, pom.xml, requirements.txt, go.mod, etc.
+    2. Identify exact versions, not just package names
+    3. Note deprecated or abandoned packages
+    4. Check for security vulnerabilities
+    5. Identify duplicate functionality libraries
+    6. Assess update risk for each dependency
+    7. Consider the ecosystem health
+    8. Document custom/internal libraries
+    9. Note any technical debt or anti-patterns]]

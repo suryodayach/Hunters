@@ -1,0 +1,88 @@
+# BMAD Project State
+# This file maintains the current project context across agent sessions
+# It is automatically updated when agents interact with Archon MCP
+
+current_project:
+  id: null
+  name: null
+  selected_at: null
+  description: null
+
+# Archon state
+archon:
+  current_task:
+    id: null
+    title: null
+    description: null
+    column: null # To Do, In Progress, Done, etc.
+    story_number: null # e.g., "1.1" for epic 1, story 1
+    subtasks: [] # List of subtask IDs
+    selected_at: null
+  current_sprint:
+    id: null
+    name: null
+    start_date: null
+    end_date: null
+    goals: null
+  current_epic:
+    id: null
+    name: null
+    stories: [] # List of story task IDs
+
+last_activity:
+  agent: null
+  action: null
+  timestamp: null
+  details: null
+
+knowledge_base:
+  last_search: null
+  last_added: null
+
+documents:
+  last_created: null
+  last_folder: null
+
+# Agent-specific state
+agent_memory:
+  analyst:
+    last_brainstorm: null
+    last_research: null
+  pm:
+    last_prd: null
+    last_roadmap: null
+  po:
+    last_backlog_update: null
+    last_priority_change: null
+  sm:
+    last_sprint: null
+    last_standup: null
+  dev:
+    last_implementation: null
+    last_documentation: null
+  qa:
+    last_test_plan: null
+    last_bug: null
+  architect:
+    last_design: null
+    last_architecture_doc: null
+  ux_expert:
+    last_design: null
+    last_ui_update: null
+
+# Workflow state
+workflow:
+  current_phase: null # planning, development, delivery
+  current_sprint: null
+  sprint_day: null # 1-6 for 6-day sprints
+
+# Settings
+settings:
+  auto_navigate: true # Automatically navigate to relevant view in Archon
+  auto_link_docs: true # Automatically link documents to tasks
+  use_knowledge_base: true # Store insights in knowledge base
+  create_subtasks: true # Always create subtasks for new tasks
+  min_subtasks: 3 # Minimum number of subtasks per task
+  max_subtasks: 7 # Maximum number of subtasks per task
+  auto_move_columns: true # Auto-move tasks between columns
+  track_velocity: true # Track sprint velocity metrics

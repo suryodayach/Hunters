@@ -1,0 +1,293 @@
+# <!-- Powered by BMAD™ Core -->
+workflow:
+  id: existing-web-app
+  name: Existing Web Application Enhancement
+  description: >-
+    Workflow for enhancing web applications created with npm CLI, create-react-app, Vite, Next.js, etc.
+    Focuses on analyzing existing project structure, planning features, and managing development
+    without project initialization or scaffolding.
+  type: existing-project
+  project_types:
+    - react-app
+    - vue-app
+    - angular-app
+    - next-app
+    - vite-app
+    - remix-app
+    - svelte-app
+
+  prerequisites:
+    - Web project already created with framework CLI
+    - Package.json configured with dependencies
+    - Build system configured (Webpack, Vite, etc.)
+    - Version control initialized
+
+  sequence:
+    - step: project_analysis
+      agent: architect
+      action: analyze existing web project
+      uses: task document-project
+      creates:
+        - project-analysis.md
+        - tech-stack.md
+        - architecture-overview.md
+      notes: |
+        Analyze the existing web project:
+        - Framework and version (React, Vue, Angular, etc.)
+        - State management (Redux, Zustand, Pinia, etc.)
+        - Routing solution
+        - UI component library (MUI, Ant Design, etc.)
+        - Build tools and configuration
+        - Testing setup
+        - API integration patterns
+        SAVE OUTPUT: Copy analysis documents to docs/analysis/ folder
+
+    - step: archon_project_setup
+      action: setup Archon project
+      notes: |
+        Create project in Archon if not exists:
+        - Set up project board with web dev columns
+        - Create initial epics for major features
+        - Configure sprint settings (6-day cycles)
+        - Set up bug tracking with severity levels
+
+    - agent: analyst
+      creates: project-brief.md
+      requires: project-analysis.md
+      optional_steps:
+        - user_research
+        - analytics_review
+        - competitive_analysis
+      notes: |
+        Create project brief for the enhancement:
+        - Define goals and objectives
+        - Identify target users and browsers
+        - Specify performance metrics
+        - Consider existing app constraints
+        - SEO and accessibility requirements
+        SAVE OUTPUT: Copy final project-brief.md to docs/ folder
+
+    - agent: pm
+      creates: prd.md
+      uses: brownfield-prd-tmpl
+      requires:
+        - project-brief.md
+        - project-analysis.md
+      notes: |
+        Create PRD with web-specific considerations:
+        - Browser compatibility requirements
+        - Responsive design requirements
+        - Performance budgets
+        - SEO requirements
+        - Accessibility standards (WCAG)
+        - API integration requirements
+        Create epic in Archon and link PRD
+        SAVE OUTPUT: Copy final prd.md to docs/ folder
+
+    - agent: ux-expert
+      creates: web-ui-spec.md
+      requires: prd.md
+      notes: |
+        Create UI/UX specification:
+        - Component design system
+        - Responsive breakpoints
+        - Interaction patterns
+        - Animation and transitions
+        - Accessibility features
+        Generate AI UI prompt if needed (v0, Lovable)
+        SAVE OUTPUT: Copy to docs/ui/ folder
+
+    - agent: architect
+      creates: web-architecture.md
+      requires:
+        - prd.md
+        - web-ui-spec.md
+      notes: |
+        Create detailed web architecture:
+        - Component architecture
+        - State management strategy
+        - API integration patterns
+        - Authentication/authorization
+        - Caching strategy
+        - Performance optimization
+        - Testing strategy
+        - Deployment architecture
+        Create architecture task in Archon
+        SAVE OUTPUT: Copy to docs/architecture/ folder
+
+    - agent: po
+      validates: all_artifacts
+      uses: po-master-checklist
+      notes: |
+        Validate web-specific requirements:
+        - Framework compatibility
+        - Browser support matrix
+        - Performance impact
+        - Security considerations
+        - Bundle size impact
+        Update Archon with validation results
+
+    - agent: po
+      action: shard_documents
+      creates: sharded_docs
+      notes: |
+        Shard documents for development:
+        - PRD → docs/prd/
+        - Architecture → docs/architecture/
+        - Organized by feature/module
+
+    - agent: sm
+      action: create_story_with_archon
+      creates: story.md + Archon task
+      requires: sharded_docs
+      repeats: for_each_epic
+      notes: |
+        Story creation with Archon integration:
+        - SM Agent: @sm → *draft
+        - Creates story from sharded docs
+        - Auto-creates Archon task with 3-7 subtasks
+        - Links story file to Archon task
+        - Sets up in "To Do" column
+
+    - agent: dev
+      action: implement_web_story
+      updates:
+        - implementation_files
+        - Archon task status
+      requires: story.md
+      notes: |
+        Web development with Archon tracking:
+        - Move Archon task to "In Progress"
+        - Implement using framework best practices
+        - Follow existing code conventions
+        - Create/update components
+        - Implement state management
+        - Add API integrations
+        - Write unit tests (Jest, Vitest)
+        - Write component tests
+        - Write E2E tests if needed
+        - Update Archon subtasks as completed
+        - Move Archon task to "Done" when complete
+
+    - agent: qa
+      action: review_web_implementation
+      updates:
+        - implementation_files
+        - Archon bug tasks (if needed)
+      notes: |
+        Web-specific review:
+        - Code quality (ESLint, Prettier)
+        - Performance audit (Lighthouse)
+        - Bundle size analysis
+        - Accessibility audit
+        - Cross-browser testing
+        - Security vulnerabilities
+        - Create bug tasks in Archon with severity
+
+    - repeat_development_cycle:
+      action: continue_for_all_stories
+      notes: |
+        Continue until all stories complete
+        Track velocity in Archon
+        Update sprint progress
+
+    - workflow_end:
+      action: sprint_complete
+      notes: |
+        Sprint complete in Archon
+        Ready for production build
+        Consider deployment strategy
+
+  web_specific_considerations:
+    architecture_patterns:
+      - Component-based architecture
+      - Container/Presentational components
+      - Custom hooks (React) / Composables (Vue)
+      - State management patterns
+      - API service layers
+
+    ui_framework:
+      - Design system integration
+      - CSS-in-JS or CSS modules
+      - Responsive design
+      - Dark mode support
+      - Micro-interactions
+
+    testing_strategy:
+      - Unit tests with Jest/Vitest
+      - Component tests with Testing Library
+      - Integration tests
+      - E2E tests with Playwright/Cypress
+      - Visual regression tests
+
+    performance:
+      - Code splitting
+      - Lazy loading
+      - Image optimization
+      - Bundle optimization
+      - Caching strategies
+      - Core Web Vitals
+
+    deployment:
+      - CI/CD pipeline
+      - Environment variables
+      - CDN configuration
+      - SSL certificates
+      - Monitoring setup
+
+  archon_integration:
+    task_structure:
+      - Epic: Major feature (from PRD)
+      - Story: User story task
+      - Subtasks: 3-7 implementation steps
+      - Bugs: Linked to story with severity
+
+    columns:
+      - Backlog
+      - To Do
+      - In Progress
+      - Code Review
+      - Testing
+      - Staging
+      - Done
+
+    tracking:
+      - Story points estimation
+      - Time tracking
+      - Velocity metrics
+      - Bug severity (P0-P3)
+      - Performance metrics
+
+  framework_specific_notes:
+    react:
+      - Use functional components with hooks
+      - Consider React Query for data fetching
+      - Use React Router for navigation
+      - Implement error boundaries
+
+    vue:
+      - Use Composition API
+      - Leverage Vue ecosystem (Pinia, Vue Router)
+      - Use script setup syntax
+      - Consider Nuxt for SSR needs
+
+    angular:
+      - Follow Angular style guide
+      - Use reactive forms
+      - Implement lazy loading modules
+      - Use Angular CLI for generation
+
+    next:
+      - Use App Router (13+)
+      - Implement SSR/SSG appropriately
+      - Optimize for Core Web Vitals
+      - Use API routes for backend
+
+  handoff_prompts:
+    analyst_to_pm: "Project analysis complete. Create PRD with web constraints in mind."
+    pm_to_ux: "PRD ready with Archon epic created. Design UI/UX specification."
+    ux_to_architect: "UI spec complete. Design web architecture."
+    architect_to_po: "Architecture complete. Validate all artifacts for web compatibility."
+    sm_to_dev: "Story created with Archon task #{task_id}. Begin implementation."
+    dev_to_qa: "Implementation complete. Archon task moved to Testing. Please review."
+    qa_to_dev: "Found {count} issues. Bug tasks created in Archon: {bug_ids}"

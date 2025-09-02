@@ -1,0 +1,525 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: android-story
+  name: Android Story Template
+  description: Template for Android development stories with Clean Architecture and Compose UI
+  type: story
+
+document:
+  title: "Story {{STORY_NUMBER}}: {{STORY_TITLE}}"
+  sections:
+    - id: story-header
+      title: Story Overview
+      content: |
+        ## Story {{STORY_NUMBER}}: {{STORY_TITLE}}
+
+        **Epic:** {{EPIC_NAME}}
+        **Priority:** {{P0|P1|P2|P3}}
+        **Story Points:** {{POINTS}}
+        **Sprint:** {{SPRINT_NUMBER}}
+        **Archon Task ID:** {{TASK_ID}}
+
+        ### User Story
+        As a {{USER_TYPE}},
+        I want to {{ACTION}},
+        So that {{BENEFIT}}.
+
+        ### Acceptance Criteria
+        - [ ] {{CRITERION_1}}
+        - [ ] {{CRITERION_2}}
+        - [ ] {{CRITERION_3}}
+
+    - id: technical-context
+      title: Technical Context
+      content: |
+        ## Technical Implementation
+
+        ### Affected Modules
+        - **Feature Module:** `:feature:{{feature_name}}`
+        - **Domain Module:** `:core:domain`
+        - **Data Module:** `:core:data`
+        - **UI Module:** `:core:ui`
+
+        ### Architecture Components
+        | Layer | Components | Action |
+        |-------|------------|--------|
+        | Presentation | {{ScreenName}}Screen, {{ScreenName}}ViewModel | {{CREATE|MODIFY}} |
+        | Domain | {{UseCase}}UseCase | {{CREATE|MODIFY}} |
+        | Data | {{Repository}}Repository, {{DataSource}} | {{CREATE|MODIFY}} |
+
+        ### Dependencies
+        - Depends on: {{DEPENDENCIES}}
+        - Blocks: {{BLOCKED_STORIES}}
+
+    - id: implementation-plan
+      title: Implementation Plan
+      content: |
+        ## Development Tasks
+
+        ### Subtasks (Archon Integration)
+        1. **Domain Layer Implementation**
+           - Create/Update domain models
+           - Implement use cases
+           - Define repository interfaces
+           
+        2. **Data Layer Implementation**
+           - Implement repository
+           - Create data sources (Remote/Local)
+           - Add mappers for DTOs
+           
+        3. **Presentation Layer - ViewModel**
+           - Create/Update ViewModel
+           - Implement UI state management
+           - Handle user actions
+           
+        4. **Presentation Layer - Compose UI**
+           - Build Compose screens
+           - Implement Material3 components
+           - Add animations and transitions
+           
+        5. **Dependency Injection**
+           - Configure Hilt modules
+           - Set up bindings
+           
+        6. **Testing**
+           - Write unit tests
+           - Create UI tests
+           - Integration testing
+           
+        7. **Documentation & Review**
+           - Update documentation
+           - Code review
+           - Performance optimization
+
+    - id: domain-implementation
+      title: Domain Layer
+      content: |
+        ## Domain Implementation
+
+        [[LLM: Use mcp__android-mcp__get_clean_architecture_pattern topic='domain_layer' for patterns]]
+        [[LLM: Use mcp__android-mcp__get_use_case_pattern for specific use case implementations]]
+
+        ### Models
+        ```kotlin
+        // domain/model/{{Model}}.kt
+        data class {{Model}}(
+            val id: String,
+            val {{field1}}: {{Type}},
+            val {{field2}}: {{Type}}
+        )
+        ```
+
+        ### Use Case
+        ```kotlin
+        // domain/usecase/{{UseCase}}.kt
+        class {{UseCase}} @Inject constructor(
+            private val repository: {{Repository}}
+        ) {
+            suspend operator fun invoke({{params}}): Result<{{ReturnType}}> {
+                return repository.{{method}}({{params}})
+            }
+        }
+        ```
+
+        ### Repository Interface
+        ```kotlin
+        // domain/repository/{{Repository}}.kt
+        interface {{Repository}} {
+            suspend fun {{method}}({{params}}): Result<{{ReturnType}}>
+        }
+        ```
+
+    - id: data-implementation
+      title: Data Layer
+      content: |
+        ## Data Implementation
+
+        [[LLM: Use mcp__android-mcp__get_clean_architecture_pattern topic='data_layer' for patterns]]
+
+        ### Repository Implementation
+        ```kotlin
+        // data/repository/{{Repository}}Impl.kt
+        class {{Repository}}Impl @Inject constructor(
+            private val remoteDataSource: {{RemoteDataSource}},
+            private val localDataSource: {{LocalDataSource}},
+            private val mapper: {{Mapper}}
+        ) : {{Repository}} {
+            
+            override suspend fun {{method}}({{params}}): Result<{{ReturnType}}> {
+                return try {
+                    // Implementation logic
+                    val response = remoteDataSource.{{apiCall}}({{params}})
+                    val domainModel = mapper.toDomain(response)
+                    localDataSource.save(domainModel)
+                    Result.success(domainModel)
+                } catch (e: Exception) {
+                    Result.failure(e)
+                }
+            }
+        }
+        ```
+
+        ### Data Source
+        ```kotlin
+        // data/source/remote/{{RemoteDataSource}}.kt
+        interface {{RemoteDataSource}} {
+            suspend fun {{apiCall}}({{params}}): {{ResponseDto}}
+        }
+
+        // data/source/local/{{LocalDataSource}}.kt
+        interface {{LocalDataSource}} {
+            suspend fun save(data: {{Model}})
+            suspend fun get(id: String): {{Model}}?
+            fun observeAll(): Flow<List<{{Model}}>>
+        }
+        ```
+
+        ### Mappers
+        ```kotlin
+        // data/mapper/{{Mapper}}.kt
+        class {{Mapper}} @Inject constructor() {
+            fun toDomain(dto: {{Dto}}): {{Model}} {
+                return {{Model}}(
+                    id = dto.id,
+                    {{field1}} = dto.{{field1}},
+                    {{field2}} = dto.{{field2}}
+                )
+            }
+            
+            fun toDto(model: {{Model}}): {{Dto}} {
+                return {{Dto}}(
+                    id = model.id,
+                    {{field1}} = model.{{field1}},
+                    {{field2}} = model.{{field2}}
+                )
+            }
+        }
+        ```
+
+    - id: presentation-implementation
+      title: Presentation Layer
+      content: |
+        ## Presentation Implementation
+
+        [[LLM: Use mcp__android-mcp__get_mvi_pattern for MVI implementation]]
+        [[LLM: Use mcp__android-mcp__get_compose_component for Compose components]]
+        [[LLM: Use mcp__android-mcp__get_material3_component for Material3 components]]
+
+        ### ViewModel
+        ```kotlin
+        // presentation/viewmodel/{{ScreenName}}ViewModel.kt
+        @HiltViewModel
+        class {{ScreenName}}ViewModel @Inject constructor(
+            private val {{useCase}}: {{UseCase}},
+            savedStateHandle: SavedStateHandle
+        ) : ViewModel() {
+            
+            private val _uiState = MutableStateFlow({{ScreenName}}UiState())
+            val uiState: StateFlow<{{ScreenName}}UiState> = _uiState.asStateFlow()
+            
+            fun handleAction(action: {{ScreenName}}Action) {
+                when (action) {
+                    is {{ScreenName}}Action.{{Action}} -> {{handleAction}}()
+                }
+            }
+            
+            private fun {{handleAction}}() {
+                viewModelScope.launch {
+                    _uiState.update { it.copy(isLoading = true) }
+                    
+                    {{useCase}}.invoke({{params}})
+                        .onSuccess { data ->
+                            _uiState.update {
+                                it.copy(
+                                    data = data,
+                                    isLoading = false
+                                )
+                            }
+                        }
+                        .onFailure { error ->
+                            _uiState.update {
+                                it.copy(
+                                    error = error.message,
+                                    isLoading = false
+                                )
+                            }
+                        }
+                }
+            }
+        }
+        ```
+
+        ### UI State
+        ```kotlin
+        // presentation/state/{{ScreenName}}UiState.kt
+        data class {{ScreenName}}UiState(
+            val data: {{DataType}}? = null,
+            val isLoading: Boolean = false,
+            val error: String? = null
+        )
+
+        sealed interface {{ScreenName}}Action {
+            data object {{Action}} : {{ScreenName}}Action
+        }
+        ```
+
+        ### Compose Screen
+        ```kotlin
+        // presentation/screen/{{ScreenName}}Screen.kt
+        @Composable
+        fun {{ScreenName}}Screen(
+            viewModel: {{ScreenName}}ViewModel = hiltViewModel(),
+            onNavigateBack: () -> Unit
+        ) {
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            
+            {{ScreenName}}Content(
+                uiState = uiState,
+                onAction = viewModel::handleAction,
+                onNavigateBack = onNavigateBack
+            )
+        }
+
+        @Composable
+        private fun {{ScreenName}}Content(
+            uiState: {{ScreenName}}UiState,
+            onAction: ({{ScreenName}}Action) -> Unit,
+            onNavigateBack: () -> Unit,
+            modifier: Modifier = Modifier
+        ) {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = { Text("{{SCREEN_TITLE}}") },
+                        navigationIcon = {
+                            IconButton(onClick = onNavigateBack) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Navigate back"
+                                )
+                            }
+                        }
+                    )
+                },
+                modifier = modifier
+            ) { paddingValues ->
+                when {
+                    uiState.isLoading -> LoadingContent()
+                    uiState.error != null -> ErrorContent(
+                        message = uiState.error,
+                        onRetry = { onAction({{ScreenName}}Action.Retry) }
+                    )
+                    uiState.data != null -> SuccessContent(
+                        data = uiState.data,
+                        onAction = onAction,
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                }
+            }
+        }
+        ```
+
+    - id: dependency-injection
+      title: Dependency Injection
+      content: |
+        ## Hilt Configuration
+
+        ### Module Setup
+        ```kotlin
+        // di/{{Feature}}Module.kt
+        @Module
+        @InstallIn(SingletonComponent::class)
+        abstract class {{Feature}}Module {
+            
+            @Binds
+            abstract fun bind{{Repository}}(
+                impl: {{Repository}}Impl
+            ): {{Repository}}
+            
+            @Binds
+            abstract fun bind{{RemoteDataSource}}(
+                impl: {{RemoteDataSource}}Impl
+            ): {{RemoteDataSource}}
+            
+            @Binds
+            abstract fun bind{{LocalDataSource}}(
+                impl: {{LocalDataSource}}Impl
+            ): {{LocalDataSource}}
+        }
+
+        @Module
+        @InstallIn(SingletonComponent::class)
+        object {{Feature}}ProvidesModule {
+            
+            @Provides
+            @Singleton
+            fun provide{{Api}}(
+                retrofit: Retrofit
+            ): {{Api}} = retrofit.create({{Api}}::class.java)
+            
+            @Provides
+            @Singleton
+            fun provide{{Dao}}(
+                database: AppDatabase
+            ): {{Dao}} = database.{{dao}}()
+        }
+        ```
+
+    - id: testing
+      title: Testing
+      content: |
+        ## Test Implementation
+
+        ### Unit Tests
+        ```kotlin
+        // test/{{UseCase}}Test.kt
+        class {{UseCase}}Test {
+            
+            @Mock
+            private lateinit var repository: {{Repository}}
+            
+            private lateinit var useCase: {{UseCase}}
+            
+            @Before
+            fun setup() {
+                MockitoAnnotations.openMocks(this)
+                useCase = {{UseCase}}(repository)
+            }
+            
+            @Test
+            fun `test successful execution`() = runTest {
+                // Given
+                val expected = {{TestData}}
+                whenever(repository.{{method}}()).thenReturn(Result.success(expected))
+                
+                // When
+                val result = useCase()
+                
+                // Then
+                assertTrue(result.isSuccess)
+                assertEquals(expected, result.getOrNull())
+            }
+        }
+        ```
+
+        ### UI Tests
+        ```kotlin
+        // androidTest/{{ScreenName}}ScreenTest.kt
+        @HiltAndroidTest
+        class {{ScreenName}}ScreenTest {
+            
+            @get:Rule
+            val hiltRule = HiltAndroidRule(this)
+            
+            @get:Rule
+            val composeTestRule = createAndroidComposeRule<MainActivity>()
+            
+            @Test
+            fun testScreenDisplaysCorrectly() {
+                composeTestRule.setContent {
+                    {{ScreenName}}Screen()
+                }
+                
+                composeTestRule
+                    .onNodeWithText("{{EXPECTED_TEXT}}")
+                    .assertIsDisplayed()
+            }
+        }
+        ```
+
+    - id: navigation-setup
+      title: Navigation Setup
+      content: |
+        ## Navigation Integration
+
+        ### Add to Navigation Graph
+        ```kotlin
+        // In AppNavGraph.kt or NavigationHost.kt
+        composable(
+            route = Screen.{{ScreenName}}.route,
+            arguments = listOf(
+                navArgument("{{arg}}") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            {{ScreenName}}Screen(
+                {{arg}} = backStackEntry.arguments?.getString("{{arg}}") ?: "",
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToDetail = { id ->
+                    navController.navigate(Screen.Detail.createRoute(id))
+                }
+            )
+        }
+        ```
+
+        ### Screen Route Definition
+        ```kotlin
+        // In Screen.kt or Navigation.kt
+        sealed class Screen(val route: String) {
+            object {{ScreenName}} : Screen("{{screen_route}}/{{{arg}}}") {
+                fun createRoute({{arg}}: String) = "{{screen_route}}/${{arg}}"
+            }
+        }
+        ```
+
+    - id: checklist
+      title: Implementation Checklist
+      content: |
+        ## Development Checklist
+
+        ### Code Implementation
+        - [ ] Domain models created
+        - [ ] Use cases implemented
+        - [ ] Repository interface defined
+        - [ ] Repository implementation complete
+        - [ ] Data sources implemented
+        - [ ] Mappers created
+        - [ ] ViewModel implemented
+        - [ ] UI State defined
+        - [ ] Compose UI built
+        - [ ] Navigation integrated
+        - [ ] Hilt modules configured
+
+        ### Testing
+        - [ ] Unit tests for use cases
+        - [ ] Unit tests for repository
+        - [ ] Unit tests for ViewModel
+        - [ ] UI tests for screens
+        - [ ] Integration tests
+
+        ### Quality
+        - [ ] Code follows Kotlin conventions
+        - [ ] No compiler warnings
+        - [ ] Proper error handling
+        - [ ] Performance optimized
+        - [ ] Accessibility implemented
+        - [ ] Dark theme supported
+
+        ### Documentation
+        - [ ] Code comments added
+        - [ ] API documentation updated
+        - [ ] README updated if needed
+
+        ### Archon Tasks
+        - [ ] All subtasks completed
+        - [ ] Task moved to Done
+        - [ ] Time tracked
+        - [ ] Any bugs linked
+
+  metadata:
+    version: "1.0"
+    created: "{{DATE}}"
+    modified: "{{DATE}}"
+    status: "{{IN_PROGRESS|READY_FOR_DEV|IN_REVIEW|DONE}}"
+
+prompts:
+  scrum_master: |
+    [[LLM: When creating Android stories:
+    1. Include all Clean Architecture layers - Use mcp__android-mcp__get_clean_architecture_pattern
+    2. Provide complete code snippets
+    3. Reference MVI patterns - Use mcp__android-mcp__get_mvi_pattern
+    4. Include Compose UI - Use mcp__android-mcp__get_compose_component
+    5. Use Material3 - Use mcp__android-mcp__get_material3_component
+    6. Add Use Case patterns - Use mcp__android-mcp__get_use_case_pattern
+    7. Add comprehensive testing
+    8. Link to Archon tasks
+    9. Follow SOLID principles]]

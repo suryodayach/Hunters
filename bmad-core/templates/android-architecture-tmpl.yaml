@@ -1,0 +1,446 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: android-architecture
+  name: Android Architecture Template
+  description: Template for documenting Android app architecture using Clean Architecture and modern patterns
+  type: technical
+
+document:
+  title: "Android Architecture: {{PROJECT_NAME}}"
+  sections:
+    - id: overview
+      title: Architecture Overview
+      content: |
+        ## Architecture Overview
+
+        **Project:** {{PROJECT_NAME}}
+        **Architecture Pattern:** {{MVVM|MVI|Clean Architecture + MVVM|Clean Architecture + MVI}}
+        **Min SDK:** {{MIN_SDK}}
+        **Target SDK:** {{TARGET_SDK}}
+        **Language:** {{Kotlin|Java}}
+        **UI Framework:** {{Jetpack Compose|View System|Hybrid}}
+
+        ### Architecture Principles
+        - Single Responsibility Principle
+        - Dependency Inversion
+        - Separation of Concerns
+        - Testability First
+        - Reactive Data Flow
+
+    - id: module-structure
+      title: Module Structure
+      content: |
+        ## Module Organization
+
+        ### App Module Structure
+        ```
+        app/
+        ├── src/main/java/{{PACKAGE}}/
+        │   ├── MainActivity.kt
+        │   ├── MainApplication.kt
+        │   ├── navigation/
+        │   └── theme/
+        └── build.gradle.kts
+        ```
+
+        ### Feature Modules
+        | Module | Type | Dependencies | Purpose |
+        |--------|------|--------------|---------|
+        | :app | Application | All features | Main application module |
+        | :core:ui | Library | :core:design | Shared UI components |
+        | :core:data | Library | :core:network, :core:database | Data layer |
+        | :core:domain | Library | None | Business logic |
+        | :feature:{{FEATURE}} | Library | :core:* | Feature implementation |
+
+        ### Module Dependencies Graph
+        ```
+        :app
+          ├── :feature:* (all features)
+          └── :core:navigation
+
+        :feature:*
+          ├── :core:ui
+          ├── :core:domain
+          └── :core:data
+
+        :core:data
+          ├── :core:network
+          ├── :core:database
+          └── :core:domain
+        ```
+
+    - id: clean-architecture
+      title: Clean Architecture Layers
+      content: |
+        ## Clean Architecture Implementation
+
+        ### Domain Layer (Pure Kotlin)
+        ```kotlin
+        domain/
+        ├── model/          # Business models
+        ├── repository/     # Repository interfaces
+        └── usecase/        # Business logic
+        ```
+
+        **Key Components:**
+        - **Models:** Data classes representing business entities
+        - **Use Cases:** Single responsibility business operations
+        - **Repository Interfaces:** Contracts for data operations
+
+        [[LLM: Use mcp__android-mcp__get_clean_architecture_pattern topic='domain_layer' for implementation details]]
+        [[LLM: Use mcp__android-mcp__get_use_case_pattern for Use Case patterns]]
+
+        ### Data Layer
+        ```kotlin
+        data/
+        ├── repository/     # Repository implementations
+        ├── source/
+        │   ├── local/     # Room, DataStore
+        │   └── remote/    # Retrofit, Ktor
+        ├── mapper/        # DTO to Domain mappers
+        └── di/            # Hilt modules
+        ```
+
+        **Key Components:**
+        - **Repository Impl:** Concrete implementations
+        - **Data Sources:** Local and remote data access
+        - **DTOs:** Data transfer objects
+        - **Mappers:** Transform DTOs to domain models
+
+        [[LLM: Use mcp__android-mcp__get_clean_architecture_pattern topic='data_layer' for patterns]]
+
+        ### Presentation Layer
+        ```kotlin
+        presentation/
+        ├── screen/        # Composables or Fragments
+        ├── viewmodel/     # ViewModels
+        ├── state/         # UI State classes
+        └── mapper/        # Domain to UI mappers
+        ```
+
+        **Key Components:**
+        - **ViewModels:** State holders and business logic orchestration
+        - **UI State:** Immutable state representations
+        - **Screens:** Compose UI or View implementations
+
+        [[LLM: Use mcp__android-mcp__get_mvi_pattern for MVI implementation]]
+        [[LLM: Use mcp__android-mcp__get_app_state_pattern for state management]]
+
+    - id: data-flow
+      title: Data Flow Architecture
+      content: |
+        ## Data Flow
+
+        ### Unidirectional Data Flow
+        ```
+        User Action → ViewModel → UseCase → Repository → DataSource
+                          ↓
+                      UI State
+                          ↓
+                      UI Update
+        ```
+
+        ### State Management
+        ```kotlin
+        // ViewModel
+        class {{Feature}}ViewModel @Inject constructor(
+            private val {{useCase}}: {{UseCase}}
+        ) : ViewModel() {
+            
+            private val _uiState = MutableStateFlow({{Feature}}UiState())
+            val uiState: StateFlow<{{Feature}}UiState> = _uiState.asStateFlow()
+            
+            fun handle{{Action}}() {
+                viewModelScope.launch {
+                    {{useCase}}.execute()
+                        .onSuccess { data ->
+                            _uiState.update { it.copy(data = data) }
+                        }
+                        .onFailure { error ->
+                            _uiState.update { it.copy(error = error) }
+                        }
+                }
+            }
+        }
+        ```
+
+        ### Event Handling
+        - **UI Events:** User interactions
+        - **Side Effects:** One-time events (navigation, toasts)
+        - **State Updates:** UI state changes
+
+    - id: dependency-injection
+      title: Dependency Injection
+      content: |
+        ## Dependency Injection with Hilt
+
+        ### Application Setup
+        ```kotlin
+        @HiltAndroidApp
+        class MainApplication : Application()
+        ```
+
+        ### Module Structure
+        ```kotlin
+        @Module
+        @InstallIn(SingletonComponent::class)
+        object DataModule {
+            
+            @Provides
+            @Singleton
+            fun provideRetrofit(): Retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            
+            @Provides
+            @Singleton
+            fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
+                Room.databaseBuilder(context, AppDatabase::class.java, "app_db").build()
+        }
+        ```
+
+        ### ViewModel Injection
+        ```kotlin
+        @HiltViewModel
+        class {{Feature}}ViewModel @Inject constructor(
+            private val repository: {{Repository}}
+        ) : ViewModel()
+        ```
+
+        ### Scopes
+        - **@Singleton:** Application-wide singletons
+        - **@ViewModelScoped:** ViewModel lifecycle
+        - **@ActivityScoped:** Activity lifecycle
+
+    - id: navigation
+      title: Navigation Architecture
+      content: |
+        ## Navigation with Compose Navigation
+
+        [[LLM: Use mcp__android-mcp__get_nav3_patterns for Navigation 3 implementation]]
+        [[LLM: Use mcp__android-mcp__get_navigation3_dynamic_topbar for dynamic TopBar patterns]]
+
+        ### Navigation Graph
+        ```kotlin
+        @Composable
+        fun AppNavGraph(
+            navController: NavHostController = rememberNavController()
+        ) {
+            NavHost(
+                navController = navController,
+                startDestination = Screen.Home.route
+            ) {
+                composable(Screen.Home.route) {
+                    HomeScreen(
+                        onNavigateToDetail = { id ->
+                            navController.navigate(Screen.Detail.createRoute(id))
+                        }
+                    )
+                }
+                
+                composable(
+                    route = Screen.Detail.route,
+                    arguments = listOf(
+                        navArgument("id") { type = NavType.StringType }
+                    )
+                ) { backStackEntry ->
+                    DetailScreen(
+                        id = backStackEntry.arguments?.getString("id") ?: "",
+                        onBack = { navController.popBackStack() }
+                    )
+                }
+            }
+        }
+        ```
+
+        ### Screen Definitions
+        ```kotlin
+        sealed class Screen(val route: String) {
+            object Home : Screen("home")
+            object Detail : Screen("detail/{id}") {
+                fun createRoute(id: String) = "detail/$id"
+            }
+        }
+        ```
+
+    - id: networking
+      title: Networking Layer
+      content: |
+        ## Network Architecture
+
+        ### Retrofit Configuration
+        ```kotlin
+        interface ApiService {
+            @GET("endpoint")
+            suspend fun getData(): Response<DataDto>
+            
+            @POST("endpoint")
+            suspend fun postData(@Body request: RequestDto): Response<ResponseDto>
+        }
+        ```
+
+        ### Error Handling
+        ```kotlin
+        sealed class NetworkResult<T> {
+            data class Success<T>(val data: T) : NetworkResult<T>()
+            data class Error<T>(val message: String) : NetworkResult<T>()
+            class Loading<T> : NetworkResult<T>()
+        }
+
+        suspend fun <T> safeApiCall(
+            apiCall: suspend () -> Response<T>
+        ): NetworkResult<T> {
+            return try {
+                val response = apiCall()
+                if (response.isSuccessful) {
+                    NetworkResult.Success(response.body()!!)
+                } else {
+                    NetworkResult.Error(response.message())
+                }
+            } catch (e: Exception) {
+                NetworkResult.Error(e.message ?: "Unknown error")
+            }
+        }
+        ```
+
+    - id: database
+      title: Database Architecture
+      content: |
+        ## Local Database with Room
+
+        ### Database Setup
+        ```kotlin
+        @Database(
+            entities = [{{Entity}}::class],
+            version = 1,
+            exportSchema = true
+        )
+        @TypeConverters(Converters::class)
+        abstract class AppDatabase : RoomDatabase() {
+            abstract fun {{entity}}Dao(): {{Entity}}Dao
+        }
+        ```
+
+        ### DAO Pattern
+        ```kotlin
+        @Dao
+        interface {{Entity}}Dao {
+            @Query("SELECT * FROM {{table_name}}")
+            fun getAll(): Flow<List<{{Entity}}>>
+            
+            @Insert(onConflict = OnConflictStrategy.REPLACE)
+            suspend fun insert(item: {{Entity}})
+            
+            @Delete
+            suspend fun delete(item: {{Entity}})
+        }
+        ```
+
+        ### Migrations
+        ```kotlin
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE {{table}} ADD COLUMN {{column}} TEXT")
+            }
+        }
+        ```
+
+    - id: testing-strategy
+      title: Testing Architecture
+      content: |
+        ## Testing Strategy
+
+        ### Unit Testing
+        ```kotlin
+        class {{UseCase}}Test {
+            @Mock
+            private lateinit var repository: {{Repository}}
+            
+            private lateinit var useCase: {{UseCase}}
+            
+            @Before
+            fun setup() {
+                MockitoAnnotations.openMocks(this)
+                useCase = {{UseCase}}(repository)
+            }
+            
+            @Test
+            fun `test successful execution`() = runTest {
+                // Given
+                val expected = {{ExpectedData}}
+                whenever(repository.getData()).thenReturn(Result.success(expected))
+                
+                // When
+                val result = useCase.execute()
+                
+                // Then
+                assertTrue(result.isSuccess)
+                assertEquals(expected, result.getOrNull())
+            }
+        }
+        ```
+
+        ### UI Testing with Compose
+        ```kotlin
+        @Test
+        fun testButtonClick() {
+            composeTestRule.setContent {
+                {{Screen}}()
+            }
+            
+            composeTestRule
+                .onNodeWithText("Click Me")
+                .performClick()
+            
+            composeTestRule
+                .onNodeWithText("Clicked!")
+                .assertIsDisplayed()
+        }
+        ```
+
+    - id: performance
+      title: Performance Considerations
+      content: |
+        ## Performance Optimization
+
+        ### Compose Performance
+        - Use `remember` for expensive computations
+        - Implement `@Stable` and `@Immutable` for data classes
+        - Avoid recomposition with proper state hoisting
+        - Use `LazyColumn/LazyRow` for lists
+
+        ### Memory Management
+        - Avoid memory leaks with proper lifecycle handling
+        - Use weak references where appropriate
+        - Clear disposables in onCleared()
+
+        ### App Startup
+        - Use App Startup library for initialization
+        - Lazy load non-critical components
+        - Implement baseline profiles
+
+        ### Build Optimization
+        - Enable R8/ProGuard
+        - Use App Bundle format
+        - Implement dynamic feature modules
+
+  metadata:
+    version: "1.0"
+    created: "{{DATE}}"
+    modified: "{{DATE}}"
+
+prompts:
+  architect: |
+    [[LLM: When creating Android architecture:
+    1. Follow Clean Architecture principles - Query mcp__android-mcp__get_clean_architecture_pattern
+    2. Use MVI pattern - Query mcp__android-mcp__get_mvi_pattern  
+    3. Implement Use Cases - Query mcp__android-mcp__get_use_case_pattern
+    4. Navigation 3 - Query mcp__android-mcp__get_nav3_patterns
+    5. Firebase services - Query mcp__android-mcp__get_firebase_pattern
+    6. Version catalog - Query mcp__android-mcp__get_version_catalog
+    7. Project generation - Use mcp__android-mcp__generate_android_project
+    8. Consider testability in all decisions
+    9. Use Kotlin idioms and coroutines
+    10. Follow Material Design guidelines
+    11. Optimize for performance and memory]]

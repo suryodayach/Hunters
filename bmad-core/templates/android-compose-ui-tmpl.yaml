@@ -1,0 +1,630 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: android-compose-ui
+  name: Android Compose UI Specification Template
+  description: Template for documenting Jetpack Compose UI components and Material3 design
+  type: design
+
+document:
+  title: "Compose UI Specification: {{FEATURE_NAME}}"
+  sections:
+    - id: overview
+      title: UI Overview
+      content: |
+        ## UI Specification Overview
+
+        **Feature:** {{FEATURE_NAME}}
+        **Design System:** Material3
+        **Theme:** {{THEME_NAME}}
+        **Supports Dark Mode:** {{YES|NO}}
+        **Accessibility Level:** {{WCAG_AA|WCAG_AAA}}
+
+        ### Design Principles
+        - Material You dynamic theming
+        - Responsive layouts
+        - Accessibility first
+        - Performance optimized
+        - Consistent spacing and typography
+
+    - id: design-system
+      title: Design System
+      content: |
+        ## Material3 Design System
+
+        [[LLM: Use mcp__android-mcp__get_material3_component for Material3 components]]
+        [[LLM: Use mcp__android-mcp__search_icons for icon selection]]
+
+        ### Color Scheme
+        ```kotlin
+        // Light Theme Colors
+        val md_theme_light_primary = Color({{HEX}})
+        val md_theme_light_onPrimary = Color({{HEX}})
+        val md_theme_light_primaryContainer = Color({{HEX}})
+        val md_theme_light_secondary = Color({{HEX}})
+        val md_theme_light_background = Color({{HEX}})
+        val md_theme_light_surface = Color({{HEX}})
+        val md_theme_light_error = Color({{HEX}})
+
+        // Dark Theme Colors
+        val md_theme_dark_primary = Color({{HEX}})
+        val md_theme_dark_onPrimary = Color({{HEX}})
+        val md_theme_dark_primaryContainer = Color({{HEX}})
+        val md_theme_dark_secondary = Color({{HEX}})
+        val md_theme_dark_background = Color({{HEX}})
+        val md_theme_dark_surface = Color({{HEX}})
+        val md_theme_dark_error = Color({{HEX}})
+        ```
+
+        ### Typography
+        ```kotlin
+        val Typography = Typography(
+            displayLarge = TextStyle(
+                fontFamily = {{FONT_FAMILY}},
+                fontWeight = FontWeight.{{WEIGHT}},
+                fontSize = {{SIZE}}.sp,
+                lineHeight = {{HEIGHT}}.sp,
+                letterSpacing = {{SPACING}}.sp
+            ),
+            headlineMedium = TextStyle(/*...*/),
+            titleLarge = TextStyle(/*...*/),
+            bodyLarge = TextStyle(/*...*/),
+            labelSmall = TextStyle(/*...*/)
+        )
+        ```
+
+        ### Spacing & Dimensions
+        ```kotlin
+        object Dimens {
+            val spacingXs = 4.dp
+            val spacingS = 8.dp
+            val spacingM = 16.dp
+            val spacingL = 24.dp
+            val spacingXl = 32.dp
+            
+            val radiusS = 4.dp
+            val radiusM = 8.dp
+            val radiusL = 16.dp
+            
+            val elevationLow = 2.dp
+            val elevationMedium = 4.dp
+            val elevationHigh = 8.dp
+        }
+        ```
+
+    - id: screen-components
+      title: Screen Components
+      content: |
+        ## Screen Layout
+
+        ### {{SCREEN_NAME}} Screen
+        ```kotlin
+        @Composable
+        fun {{ScreenName}}Screen(
+            viewModel: {{ScreenName}}ViewModel = hiltViewModel(),
+            onNavigateBack: () -> Unit,
+            onNavigateToDetail: (String) -> Unit
+        ) {
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            
+            {{ScreenName}}Content(
+                uiState = uiState,
+                onAction = viewModel::handleAction,
+                onNavigateBack = onNavigateBack,
+                onNavigateToDetail = onNavigateToDetail
+            )
+        }
+        ```
+
+        ### Layout Structure
+        ```
+        Scaffold
+        ├── TopAppBar
+        │   ├── NavigationIcon
+        │   ├── Title
+        │   └── Actions
+        ├── Content
+        │   ├── {{CONTENT_LAYOUT}}
+        │   └── {{COMPONENTS}}
+        └── BottomBar (optional)
+        ```
+
+        ### Responsive Layout
+        ```kotlin
+        @Composable
+        fun AdaptiveLayout(
+            windowSizeClass: WindowSizeClass
+        ) {
+            when (windowSizeClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> CompactLayout()
+                WindowWidthSizeClass.Medium -> MediumLayout()
+                WindowWidthSizeClass.Expanded -> ExpandedLayout()
+            }
+        }
+        ```
+
+    - id: ui-components
+      title: UI Components
+      content: |
+        ## Reusable Components
+
+        [[LLM: Use mcp__android-mcp__get_compose_component for Compose components]]
+
+        ### Custom Card Component
+        ```kotlin
+        @Composable
+        fun {{Feature}}Card(
+            item: {{Item}},
+            onClick: () -> Unit,
+            modifier: Modifier = Modifier
+        ) {
+            Card(
+                onClick = onClick,
+                modifier = modifier,
+                shape = RoundedCornerShape({{RADIUS}}.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = {{ELEVATION}}.dp
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding({{PADDING}}.dp)
+                ) {
+                    // Card content
+                }
+            }
+        }
+        ```
+
+        ### List Item Component
+        ```kotlin
+        @Composable
+        fun {{Feature}}ListItem(
+            item: {{Item}},
+            onItemClick: ({{Item}}) -> Unit,
+            modifier: Modifier = Modifier
+        ) {
+            ListItem(
+                headlineContent = { Text(item.title) },
+                supportingContent = { Text(item.description) },
+                leadingContent = {
+                    Icon(
+                        imageVector = Icons.Default.{{ICON}},
+                        contentDescription = null
+                    )
+                },
+                trailingContent = {
+                    IconButton(onClick = { /* action */ }) {
+                        Icon(
+                            imageVector = Icons.Default.ChevronRight,
+                            contentDescription = "Navigate"
+                        )
+                    }
+                },
+                modifier = modifier.clickable { onItemClick(item) }
+            )
+        }
+        ```
+
+        ### Loading State
+        ```kotlin
+        @Composable
+        fun LoadingContent(
+            modifier: Modifier = Modifier
+        ) {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(48.dp),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+        ```
+
+        ### Error State
+        ```kotlin
+        @Composable
+        fun ErrorContent(
+            message: String,
+            onRetry: () -> Unit,
+            modifier: Modifier = Modifier
+        ) {
+            Column(
+                modifier = modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Error,
+                    contentDescription = null,
+                    modifier = Modifier.size(64.dp),
+                    tint = MaterialTheme.colorScheme.error
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = message,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(onClick = onRetry) {
+                    Text("Retry")
+                }
+            }
+        }
+        ```
+
+    - id: animations
+      title: Animations & Transitions
+      content: |
+        ## Animation Specifications
+
+        ### Enter/Exit Animations
+        ```kotlin
+        @Composable
+        fun AnimatedContent(
+            visible: Boolean,
+            content: @Composable () -> Unit
+        ) {
+            AnimatedVisibility(
+                visible = visible,
+                enter = fadeIn() + slideInVertically(),
+                exit = fadeOut() + slideOutVertically()
+            ) {
+                content()
+            }
+        }
+        ```
+
+        ### Transition Animations
+        ```kotlin
+        @Composable
+        fun AnimatedStateTransition(
+            targetState: Boolean
+        ) {
+            val transition = updateTransition(targetState, label = "state")
+            
+            val size by transition.animateDp(
+                label = "size",
+                transitionSpec = {
+                    spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                }
+            ) { state ->
+                if (state) 200.dp else 100.dp
+            }
+        }
+        ```
+
+        ### Gesture Animations
+        ```kotlin
+        @Composable
+        fun SwipeableCard() {
+            val swipeableState = rememberSwipeableState(0)
+            val sizePx = with(LocalDensity.current) { 100.dp.toPx() }
+            val anchors = mapOf(0f to 0, sizePx to 1)
+            
+            Box(
+                modifier = Modifier
+                    .swipeable(
+                        state = swipeableState,
+                        anchors = anchors,
+                        thresholds = { _, _ -> FractionalThreshold(0.3f) },
+                        orientation = Orientation.Horizontal
+                    )
+            )
+        }
+        ```
+
+    - id: navigation-ui
+      title: Navigation UI
+      content: |
+        ## Navigation Components
+
+        ### Bottom Navigation
+        ```kotlin
+        @Composable
+        fun BottomNavigationBar(
+            currentRoute: String?,
+            onNavigate: (String) -> Unit
+        ) {
+            NavigationBar {
+                listOf(
+                    NavigationItem.Home,
+                    NavigationItem.Search,
+                    NavigationItem.Profile
+                ).forEach { item ->
+                    NavigationBarItem(
+                        icon = { Icon(item.icon, contentDescription = null) },
+                        label = { Text(item.label) },
+                        selected = currentRoute == item.route,
+                        onClick = { onNavigate(item.route) }
+                    )
+                }
+            }
+        }
+        ```
+
+        ### Navigation Drawer
+        ```kotlin
+        @Composable
+        fun NavigationDrawer(
+            drawerState: DrawerState,
+            onNavigate: (String) -> Unit,
+            content: @Composable () -> Unit
+        ) {
+            ModalNavigationDrawer(
+                drawerState = drawerState,
+                drawerContent = {
+                    ModalDrawerSheet {
+                        NavigationDrawerItems(
+                            onNavigate = onNavigate,
+                            onCloseDrawer = {
+                                scope.launch { drawerState.close() }
+                            }
+                        )
+                    }
+                },
+                content = content
+            )
+        }
+        ```
+
+    - id: form-components
+      title: Form & Input Components
+      content: |
+        ## Form Components
+
+        ### Text Input Field
+        ```kotlin
+        @Composable
+        fun CustomTextField(
+            value: String,
+            onValueChange: (String) -> Unit,
+            label: String,
+            error: String? = null,
+            modifier: Modifier = Modifier
+        ) {
+            OutlinedTextField(
+                value = value,
+                onValueChange = onValueChange,
+                label = { Text(label) },
+                isError = error != null,
+                supportingText = error?.let { { Text(it) } },
+                modifier = modifier.fillMaxWidth(),
+                singleLine = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                )
+            )
+        }
+        ```
+
+        ### Selection Components
+        ```kotlin
+        @Composable
+        fun DropdownSelector(
+            selectedValue: String,
+            options: List<String>,
+            onSelectionChange: (String) -> Unit,
+            label: String
+        ) {
+            var expanded by remember { mutableStateOf(false) }
+            
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = { expanded = it }
+            ) {
+                OutlinedTextField(
+                    value = selectedValue,
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text(label) },
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxWidth()
+                )
+                
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    options.forEach { option ->
+                        DropdownMenuItem(
+                            text = { Text(option) },
+                            onClick = {
+                                onSelectionChange(option)
+                                expanded = false
+                            }
+                        )
+                    }
+                }
+            }
+        }
+        ```
+
+    - id: dialogs-sheets
+      title: Dialogs & Bottom Sheets
+      content: |
+        ## Dialogs and Bottom Sheets
+
+        ### Alert Dialog
+        ```kotlin
+        @Composable
+        fun ConfirmationDialog(
+            title: String,
+            message: String,
+            onConfirm: () -> Unit,
+            onDismiss: () -> Unit
+        ) {
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                title = { Text(title) },
+                text = { Text(message) },
+                confirmButton = {
+                    TextButton(onClick = onConfirm) {
+                        Text("Confirm")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = onDismiss) {
+                        Text("Cancel")
+                    }
+                }
+            )
+        }
+        ```
+
+        ### Modal Bottom Sheet
+        ```kotlin
+        @OptIn(ExperimentalMaterial3Api::class)
+        @Composable
+        fun ModalBottomSheet(
+            onDismiss: () -> Unit,
+            content: @Composable ColumnScope.() -> Unit
+        ) {
+            val sheetState = rememberModalBottomSheetState(
+                skipPartiallyExpanded = false
+            )
+            
+            ModalBottomSheet(
+                onDismissRequest = onDismiss,
+                sheetState = sheetState,
+                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    content()
+                }
+            }
+        }
+        ```
+
+    - id: accessibility
+      title: Accessibility
+      content: |
+        ## Accessibility Implementation
+
+        ### Content Descriptions
+        ```kotlin
+        Icon(
+            imageVector = Icons.Default.Favorite,
+            contentDescription = "Add to favorites",
+            modifier = Modifier.semantics {
+                role = Role.Button
+                stateDescription = if (isFavorite) "Favorited" else "Not favorited"
+            }
+        )
+        ```
+
+        ### Semantic Properties
+        ```kotlin
+        Row(
+            modifier = Modifier.semantics(mergeDescendants = true) {
+                contentDescription = "Item: ${item.title}, Price: ${item.price}"
+            }
+        ) {
+            Text(item.title)
+            Spacer(modifier = Modifier.weight(1f))
+            Text(item.price)
+        }
+        ```
+
+        ### Focus Management
+        ```kotlin
+        val focusRequester = remember { FocusRequester() }
+
+        TextField(
+            value = text,
+            onValueChange = { text = it },
+            modifier = Modifier
+                .focusRequester(focusRequester)
+                .onFocusChanged { focusState ->
+                    // Handle focus changes
+                }
+        )
+
+        LaunchedEffect(Unit) {
+            focusRequester.requestFocus()
+        }
+        ```
+
+    - id: performance-ui
+      title: UI Performance
+      content: |
+        ## Performance Optimization
+
+        ### Composition Optimization
+        ```kotlin
+        @Stable
+        data class ItemUiState(
+            val id: String,
+            val title: String,
+            val description: String
+        )
+
+        @Composable
+        fun OptimizedList(
+            items: List<ItemUiState>
+        ) {
+            LazyColumn {
+                items(
+                    items = items,
+                    key = { item -> item.id }
+                ) { item ->
+                    ListItem(
+                        item = item,
+                        modifier = Modifier.animateItemPlacement()
+                    )
+                }
+            }
+        }
+        ```
+
+        ### Remember Calculations
+        ```kotlin
+        @Composable
+        fun ExpensiveCalculation(
+            data: List<Data>
+        ) {
+            val processedData = remember(data) {
+                data.map { processData(it) }
+            }
+            
+            val derivedState = remember {
+                derivedStateOf {
+                    processedData.filter { it.isVisible }
+                }
+            }
+        }
+        ```
+
+  metadata:
+    version: "1.0"
+    created: "{{DATE}}"
+    modified: "{{DATE}}"
+
+prompts:
+  ux_expert: |
+    [[LLM: When creating Compose UI specifications:
+    1. Follow Material3 design guidelines - Query mcp__android-mcp__get_material3_component
+    2. Get Compose components - Query mcp__android-mcp__get_compose_component
+    3. Search for icons - Query mcp__android-mcp__search_icons
+    4. Get specific icons - Query mcp__android-mcp__get_material_icon
+    5. Get mockup images - Query mcp__android-mcp__search_unsplash_images
+    6. Ensure accessibility compliance
+    7. Optimize for performance
+    8. Support dark theme
+    9. Consider different screen sizes
+    10. Use proper state management]]

@@ -105,9 +105,35 @@ ALWAYS cite source documents: `[Source: architecture/{filename}.md#{section}]`
 - Ensure tasks align with both epic requirements and architecture constraints
 - Update status to "Draft" and save the story file
 - Execute `{root}/tasks/execute-checklist` `{root}/checklists/story-draft-checklist`
+
+### 7. Create Task in Archon
+
+- **Check MCP Availability**: Try to connect to Archon MCP server
+- **If Archon is available:**
+  - Create main story task in Archon with:
+    - Title: `{epicNum}.{storyNum}: {Story Title}`
+    - Description: Full story statement and acceptance criteria
+    - Epic link: Link to epic {epicNum} if exists
+    - Column: "To Do" (default)
+  - Create subtasks (3-7) based on Tasks/Subtasks section:
+    - Each major task becomes a subtask
+    - Include testing tasks as subtasks
+    - Link subtasks to main story task
+  - Add technical notes from Dev Notes section
+  - Link story file path to task
+  - Update `{root}/data/project-state.yaml` with task IDs
+- **If Archon is unavailable:**
+  - Log warning but continue (don't block story creation)
+  - Add note to story file: "Archon task creation pending - retry when server available"
+  - Store task creation request in project-state.yaml for later retry
+
+### 8. Summary and Next Steps
+
 - Provide summary to user including:
   - Story created: `{devStoryLocation}/{epicNum}.{storyNum}.story.md`
   - Status: Draft
+  - Archon task: [Task ID if created, or "Pending" if unavailable]
+  - Subtasks created: [Count of subtasks]
   - Key technical components included from architecture docs
   - Any deviations or conflicts noted between epic and architecture
   - Checklist Results

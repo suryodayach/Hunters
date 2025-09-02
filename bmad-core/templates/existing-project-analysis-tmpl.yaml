@@ -1,0 +1,272 @@
+# <!-- Powered by BMAD™ Core -->
+template:
+  id: existing-project-analysis
+  name: Existing Project Analysis Template
+  description: Template for analyzing and documenting existing projects before enhancement
+  type: analysis
+
+document:
+  title: "Project Analysis: {{PROJECT_NAME}}"
+  sections:
+    - id: executive-summary
+      title: Executive Summary
+      content: |
+        ## Project Overview
+
+        **Project Name:** {{PROJECT_NAME}}
+        **Project Type:** {{PROJECT_TYPE}}
+        **Analysis Date:** {{DATE}}
+        **Analyzed By:** {{ANALYST}}
+
+        ### Purpose
+        {{Brief description of what the project does and its target users}}
+
+        ### Current State
+        {{Summary of the project's current state, version, and deployment status}}
+
+        ### Analysis Scope
+        {{What aspects of the project were analyzed and why}}
+
+    - id: project-structure
+      title: Project Structure
+      content: |
+        ## Project Structure Analysis
+
+        ### Directory Structure
+        ```
+        {{PROJECT_ROOT}}/
+        {{Directory tree showing main folders and key files}}
+        ```
+
+        ### Module Organization
+        {{Description of how the project is organized into modules/packages}}
+
+        ### Key Components
+        - **Core Modules:** {{List main modules and their purposes}}
+        - **Shared Libraries:** {{Common/shared code locations}}
+        - **Configuration:** {{Where configuration files are located}}
+        - **Assets/Resources:** {{Static assets, resources location}}
+
+        ### Build System
+        - **Build Tool:** {{Gradle, npm, webpack, etc.}}
+        - **Build Scripts:** {{Location and purpose of build scripts}}
+        - **Build Variants:** {{Different build configurations}}
+
+    - id: technology-stack
+      title: Technology Stack
+      content: |
+        ## Technology Stack
+
+        ### Core Technologies
+        | Category | Technology | Version | Purpose |
+        |----------|-----------|---------|---------|
+        | Language | {{LANGUAGE}} | {{VERSION}} | {{PURPOSE}} |
+        | Framework | {{FRAMEWORK}} | {{VERSION}} | {{PURPOSE}} |
+        | Runtime | {{RUNTIME}} | {{VERSION}} | {{PURPOSE}} |
+
+        ### Dependencies
+
+        #### Production Dependencies
+        | Library | Version | Purpose | Critical |
+        |---------|---------|---------|----------|
+        | {{LIBRARY}} | {{VERSION}} | {{PURPOSE}} | {{YES/NO}} |
+
+        #### Development Dependencies
+        | Tool | Version | Purpose |
+        |------|---------|---------|
+        | {{TOOL}} | {{VERSION}} | {{PURPOSE}} |
+
+        ### External Services
+        - **APIs:** {{List of external APIs used}}
+        - **Databases:** {{Database systems and versions}}
+        - **Cloud Services:** {{AWS, Firebase, etc.}}
+        - **Third-party Services:** {{Analytics, crash reporting, etc.}}
+
+    - id: architecture-patterns
+      title: Architecture & Patterns
+      content: |
+        ## Architecture Analysis
+
+        ### Architecture Pattern
+        **Primary Pattern:** {{MVVM, MVC, Clean Architecture, etc.}}
+
+        {{Description of how the pattern is implemented}}
+
+        ### Design Patterns Used
+        - **Pattern:** {{Description and where it's used}}
+        - **Pattern:** {{Description and where it's used}}
+
+        ### Data Flow
+        ```
+        {{Diagram or description of data flow through the application}}
+        ```
+
+        ### State Management
+        {{How application state is managed}}
+
+        ### Dependency Injection
+        {{DI framework and implementation approach}}
+
+    - id: code-quality
+      title: Code Quality Analysis
+      content: |
+        ## Code Quality Metrics
+
+        ### Code Statistics
+        - **Total Lines of Code:** {{LOC}}
+        - **Number of Files:** {{FILE_COUNT}}
+        - **Average File Size:** {{AVG_SIZE}}
+        - **Test Coverage:** {{COVERAGE_PERCENTAGE}}
+
+        ### Code Style
+        - **Style Guide:** {{Which style guide is followed}}
+        - **Linting:** {{Linting tools and configuration}}
+        - **Formatting:** {{Code formatting tools}}
+
+        ### Technical Debt
+        | Area | Issue | Severity | Impact |
+        |------|-------|----------|--------|
+        | {{AREA}} | {{ISSUE}} | {{HIGH/MEDIUM/LOW}} | {{IMPACT}} |
+
+        ### Code Smells
+        {{List of identified code smells and anti-patterns}}
+
+    - id: testing-strategy
+      title: Testing Strategy
+      content: |
+        ## Current Testing Approach
+
+        ### Test Types
+        | Type | Framework | Coverage | Location |
+        |------|-----------|----------|----------|
+        | Unit Tests | {{FRAMEWORK}} | {{%}} | {{PATH}} |
+        | Integration Tests | {{FRAMEWORK}} | {{%}} | {{PATH}} |
+        | UI/E2E Tests | {{FRAMEWORK}} | {{%}} | {{PATH}} |
+
+        ### Test Execution
+        - **Test Runner:** {{Jest, JUnit, etc.}}
+        - **CI/CD Integration:** {{How tests run in CI/CD}}
+        - **Test Data:** {{How test data is managed}}
+
+        ### Testing Gaps
+        {{Areas lacking adequate test coverage}}
+
+    - id: performance-analysis
+      title: Performance Analysis
+      content: |
+        ## Performance Metrics
+
+        ### Current Performance
+        - **App/Page Load Time:** {{TIME}}
+        - **Memory Usage:** {{MEMORY}}
+        - **Bundle/APK Size:** {{SIZE}}
+        - **API Response Times:** {{TIMES}}
+
+        ### Performance Issues
+        | Issue | Impact | Suggested Fix |
+        |-------|--------|---------------|
+        | {{ISSUE}} | {{IMPACT}} | {{FIX}} |
+
+        ### Optimization Opportunities
+        {{List of potential performance improvements}}
+
+    - id: security-review
+      title: Security Review
+      content: |
+        ## Security Analysis
+
+        ### Security Measures
+        - **Authentication:** {{Method used}}
+        - **Authorization:** {{How permissions are handled}}
+        - **Data Encryption:** {{Encryption methods}}
+        - **API Security:** {{How APIs are secured}}
+
+        ### Security Vulnerabilities
+        | Vulnerability | Severity | Recommendation |
+        |--------------|----------|----------------|
+        | {{VULN}} | {{SEVERITY}} | {{RECOMMENDATION}} |
+
+        ### Compliance
+        - **Standards:** {{OWASP, PCI-DSS, etc.}}
+        - **Privacy:** {{GDPR, CCPA compliance}}
+
+    - id: deployment-infrastructure
+      title: Deployment & Infrastructure
+      content: |
+        ## Deployment Setup
+
+        ### Environments
+        | Environment | URL/Location | Purpose |
+        |------------|--------------|---------|
+        | Development | {{URL}} | {{PURPOSE}} |
+        | Staging | {{URL}} | {{PURPOSE}} |
+        | Production | {{URL}} | {{PURPOSE}} |
+
+        ### CI/CD Pipeline
+        - **CI Tool:** {{Jenkins, GitHub Actions, etc.}}
+        - **Build Process:** {{Steps in build process}}
+        - **Deployment Process:** {{How deployments happen}}
+
+        ### Infrastructure
+        - **Hosting:** {{Where the app is hosted}}
+        - **Scaling:** {{How the app scales}}
+        - **Monitoring:** {{Monitoring tools used}}
+
+    - id: team-knowledge
+      title: Team & Knowledge
+      content: |
+        ## Team Knowledge
+
+        ### Documentation
+        - **README:** {{Quality and completeness}}
+        - **API Docs:** {{Available and location}}
+        - **Architecture Docs:** {{Available and location}}
+        - **Setup Guide:** {{Available and helpful}}
+
+        ### Code Comments
+        {{Quality and coverage of code comments}}
+
+        ### Knowledge Gaps
+        {{Areas where documentation or knowledge is lacking}}
+
+    - id: recommendations
+      title: Recommendations
+      content: |
+        ## Recommendations
+
+        ### Immediate Improvements
+        1. **{{IMPROVEMENT}}**
+           - Impact: {{IMPACT}}
+           - Effort: {{EFFORT}}
+           - Priority: {{PRIORITY}}
+
+        ### Long-term Enhancements
+        1. **{{ENHANCEMENT}}**
+           - Impact: {{IMPACT}}
+           - Effort: {{EFFORT}}
+           - Timeline: {{TIMELINE}}
+
+        ### Risk Mitigation
+        {{Recommendations for addressing identified risks}}
+
+        ### Next Steps
+        1. {{STEP}}
+        2. {{STEP}}
+        3. {{STEP}}
+
+  metadata:
+    version: "1.0"
+    created: "{{DATE}}"
+    modified: "{{DATE}}"
+    status: "{{DRAFT|FINAL}}"
+
+prompts:
+  analyst: |
+    [[LLM: When analyzing an existing project:
+    1. Be thorough but objective in your analysis
+    2. Focus on actionable findings
+    3. Prioritize issues by impact
+    4. Consider the existing team's constraints
+    5. Provide specific examples where possible
+    6. Balance criticism with recognition of good practices
+    7. Make recommendations feasible and practical]]
